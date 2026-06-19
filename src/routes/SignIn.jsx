@@ -3,9 +3,8 @@
 import { AuthPanel } from "../components/AuthPanel";
 import { ShortAnswer } from "../components/FormComponents";
 import { useState } from "react";
-import axios from "../axios/axios";
-import { useCsrf } from "../hooks/publicApiHooks";
-import useRefreshToken from "../hooks/useRefreshToken";
+import axiosApi from "../axios/axios";
+import { useCsrf, useForwardDashboard } from "../hooks/publicApiHooks";
 import { setJwt } from "../slices/jwt";
 import { useNavigate } from "react-router";
 import { validate, handleFormBlur, handleFormChange } from "../handlers/forms";
@@ -51,7 +50,7 @@ export default function SignIn() {
         grad_date: formData.grad_date ? `${formData.grad_date}-01` : ""
       };
 
-    axios
+    axiosApi
         .post("/auth/jwt/create/", payload, {
           mode: "cors",
           withCredentials: true,
@@ -61,6 +60,7 @@ export default function SignIn() {
           console.log(res.data);
           dispatch(setJwt(res.data.access));
           setError("");
+          document.cookie = 'refresh=' + res.data.refresh;
           dispatch(setSuccessMsg("Sign In Succsessful"))
           nav('/dashboard');
         })
@@ -71,7 +71,7 @@ export default function SignIn() {
   };
 
   useCsrf();
-  useRefreshToken();
+  // useForwardDashboard();
 
   return (
     <>

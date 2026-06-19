@@ -1,39 +1,98 @@
 import axios from "axios";
+import store from '../store'
+import { setJwt } from "../slices/jwt";
 
-axios.defaults.xsrfCookieName = 'csrftoken';
-axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-axios.defaults.withXSRFToken = true;
-axios.defaults.headers.common['Accept'] = '*/*';
-
-// axios.interceptors.response.use(
-//   (response) => {
-//     // Return data directly for successful (2xx) responses
-//     return response.data;
-//   },
-//   (error) => {
-//     // Handle specific status codes globally
-//     if (error.response) {
-//       const status = error.response.status;
-      
-//       if (status === 401) {
-//         // Example: Redirect to login or refresh token
-//         console.warn('Unauthorized! Redirecting to login...');
-//         if (error.response.data && error.response.data.code && error.response.data.code == "token_not_valid"){
-//             makeStore.dispatch(clearJwt());
-//         }
-//       } else if (status === 500) {
-//         // Example: Show global error notification
-//         console.error('Server Error!');
-//       }
-//     }
-    
-//     // Always reject the promise so individual .catch() blocks still work
-//     return Promise.reject(error);
-//   }
-// );
-
-export default axios.create({
+const axiosApi = axios.create({
     baseURL: 'http://localhost:8000/collegiates_app',
     xsrfCookieName: 'csrftoken',
     xsrfHeaderName: 'X-CSRFToken'
 });
+
+axiosApi.defaults.xsrfCookieName = 'csrftoken';
+axiosApi.defaults.xsrfHeaderName = 'X-CSRFToken';
+axiosApi.defaults.withXSRFToken = true;
+axiosApi.defaults.headers.common['Accept'] = '*/*';
+
+let isRefreshing = false;
+let failedQueue = [];
+
+// Helper to process the queued requests after a successful token refresh
+const processQueue = (error, token = null) => {
+  failedQueue.forEach((prom) => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token);
+    }
+  });
+
+  failedQueue = [];
+};
+
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+axiosApi.interceptors.response.use(
+  (response) => response, // Pass successful responses straight through
+  async (error) => {
+    const originalRequest = error.config;
+
+    // Check if error is 401 and the request hasn't been retried yet
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      
+      // If a refresh is already in progress, queue this request
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject });
+        })
+          .then((token) => {
+            originalRequest.headers['Authorization'] = `Bearer ${token}`;
+            return api(originalRequest); // Retry original request
+          })
+          .catch((err) => Promise.reject(err));
+      }
+
+      // Mark this request as a retry to prevent infinite loops if the refresh fails
+      originalRequest._retry = true;
+      isRefreshing = true;
+
+      return new Promise((resolve, reject) => {
+        // Use standard axios or a clean instance to avoid using the interceptor on the refresh call
+        axiosApi.post('/auth/jwt/refresh/', {
+          refresh: getCookie('refresh'),
+        })
+        .then(({ data }) => {
+          // Store the new tokens
+          if (data.access) {
+            store.dispatch(setJwt(data.access));
+          }
+
+          // Update default instance header and original request header
+          originalRequest.headers['Authorization'] = `Bearer ${data.access}`;
+
+          // Resolve all requests in the queue with the new token
+          processQueue(null, data.access);
+
+          // Retry the original request
+          resolve(axiosApi(originalRequest));
+        })
+        .catch((err) => {
+          // If the refresh token itself is invalid/expired, log out the user
+          processQueue(err, null);
+        //   window.location.href = '/signin'; // Or use your router's redirect
+          reject(err);
+        })
+        .finally(() => {
+          isRefreshing = false;
+        });
+      });
+    }
+
+    return Promise.reject(error);
+  }
+);
+
+export default axiosApi;

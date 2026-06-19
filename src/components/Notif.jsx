@@ -1,15 +1,15 @@
 "use client"
 
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { clearSuccessMsg } from "@/lib/slices/success";
-import { clearErrorMsg } from "@/lib/slices/error";
+import { clearSuccessMsg } from "../slices/success";
+import { clearErrorMsg } from "../slices/error";
+import { useSelector, useDispatch } from "react-redux";
 
 
 
 function SuccessNotif() {
 
-    const dispatch = useAppDispatch();
-    const success = useAppSelector(state => state.success.message);
+    const dispatch = useDispatch();
+    const success = useSelector(state => state.success.message);
 
 
     return (
@@ -28,8 +28,8 @@ function SuccessNotif() {
 
 function ErrorNotif() {
 
-    const dispatch = useAppDispatch();
-    const error = useAppSelector(state => state.error.message);
+    const dispatch = useDispatch();
+    const error = useSelector(state => state.error.message);
 
 
     return (

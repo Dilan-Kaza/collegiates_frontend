@@ -1,7 +1,7 @@
 // import { Geist, Geist_Mono } from "next/font/google";
 import { NavBar } from "./Navbar";
 import { Outlet, Link } from "react-router";
-// import { SuccessNotif, ErrorNotif } from "./Notif";
+import { SuccessNotif, ErrorNotif } from "./Notif";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -35,8 +35,8 @@ export default function Layout() {
             </div>
 
 
-          {/* <SuccessNotif/>
-          <ErrorNotif/> */}
+          <SuccessNotif/>
+          <ErrorNotif/>
           </>
   );
 }

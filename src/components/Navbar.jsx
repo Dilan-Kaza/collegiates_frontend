@@ -1,11 +1,24 @@
 import { Link, useNavigate }from "react-router";
 import { useCurrentUser } from "../hooks/userApiHooks";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const tabs = ["Tournament", "Rules", "About"];
 
 function NavBar() {
 
-  const username = useCurrentUser().first_name;
+  const [username,setUsername] = useState("");
+
+  const userInfo = useCurrentUser();
+
+  useEffect(()=>{
+    if (userInfo){
+      setUsername(userInfo.first_name);
+    } else {
+      setUsername("");
+    }
+  },[userInfo]);
+  
   const nav = useNavigate();
 
   return (

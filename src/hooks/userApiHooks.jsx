@@ -1,20 +1,23 @@
-import axios from "../axios/axios";
+import axiosApi from "../axios/axios";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setJwt } from "../slices/jwt";
+import store from "../store";
+import { useNavigate } from "react-router";
+
 
 function useCurrentUser(){
 
     const [userInfo, setUserInfo] = useState({});
 
     const access = useSelector((state)=>state.jwt.access);
-    console.log(access);
 
   useEffect(() => {
 
     const getMe = async () => {
 
-        axios
-            .get("/auth/users/me", {
+        axiosApi
+            .get("/auth/users/me/", {
                 mode: "cors",
                 withCredentials: true,
                 credentials: "include",
@@ -23,13 +26,12 @@ function useCurrentUser(){
                 }
             })
             .then((res) => setUserInfo(res.data))
-            .catch(() => console.warn("not logged in"));
+            .catch((err) => setUserInfo(""));
     }
-    if (access !== "") {
-        getMe();
-    }
+    getMe();
 
   },[access]);
+
 
   return userInfo;
 }
