@@ -1,16 +1,17 @@
 "use client"
 
-import { Button } from "../components/Button";
 import { useCurrentUser } from "../hooks/userApiHooks"
 import { MtHeader } from "../components/Headers";
 import { useDispatch, useSelector } from "react-redux";
 import { clearJwt } from "../slices/jwt";
+import { useNavigate } from "react-router";
 
 export default function Dashboard (){
     
     const userinfo = useCurrentUser();
     const dispatch= useDispatch();
     const jwt = useSelector((state)=>state.jwt.access);
+    const nav = useNavigate();
     
     return (        
         <>
@@ -31,7 +32,7 @@ export default function Dashboard (){
                 <div className="flex flex-cols-3 p-1">
                     <div className="flex-1"/>
                     <div className="flex-1 content-center">
-                        <Button isLink="true">Register</Button>
+                        <button className="btn btn-primary" onClick={()=>{nav('/register')}}>Register</button>
                     </div>
                     <div className="flex-1"/>
                 </div>

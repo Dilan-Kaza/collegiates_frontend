@@ -10,7 +10,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import SignIn from "./routes/SignIn";
 import Dashboard from "./routes/Dashboard";
 import Register from "./routes/Register";
-import Signup from "./routes/Signup";
+import Signup from "./routes/SignUp";
 
 
 const routes = [

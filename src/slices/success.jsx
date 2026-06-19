@@ -15,7 +15,6 @@ export const successSlice = createSlice({
   }
 })
 
-// Action creators are generated for each case reducer function
 export const { clearSuccessMsg, setSuccessMsg } = successSlice.actions
 
 export default successSlice.reducer

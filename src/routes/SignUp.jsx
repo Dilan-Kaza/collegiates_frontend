@@ -1,15 +1,12 @@
-"use client";
-
 import { AuthPanelWide } from "../components/AuthPanel";
-import { LongButton } from "../components/Button";
 import {
   DatePicker,
   Dropdown,
   ShortAnswer,
 } from "../components/formComponents";
 import { useState } from "react";
-import axios from "../axios/axios";
-import { useCsrf, useColleges} from "../hooks/publicApiHooks";
+import axiosApi from "../axios/axios";
+import { useCsrf, useColleges, useForwardDashboard} from "../hooks/publicApiHooks";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { setSuccessMsg } from "../slices/success";
@@ -69,7 +66,7 @@ export default function Signup() {
   };
 
   useCsrf();
-  // useForwardDashboard();
+  useForwardDashboard();
   const colleges = useColleges();
 
 
@@ -97,7 +94,7 @@ export default function Signup() {
       grad_date: formData.grad_date ? `${formData.grad_date}-01` : ""
     };
 
-    axios
+    axiosApi
         .post("/auth/users/", payload, {
         mode: "cors",
         withCredentials: true,
@@ -304,17 +301,21 @@ export default function Signup() {
                       <p className="text-red-500 text-sm mt-1">{errors.student_type}</p>
                     )}
                   </div>
+                  
                 </div>
+                
               </div>
+              
             </div>
-            <button
-              onClick={handleSubmit}
-              type="submit"
-              disabled={loading}
-              className="self-stretch mb-20"
-            >
-              <LongButton>{loading ? "Signing up..." : "Submit"}</LongButton>
-            </button>
+            <div className="felx-container content-center" justify-center>
+              <button
+                onClick={handleSubmit}
+                type="submit"
+                disabled={loading}
+                className="btn btn-block btn-primary"
+              >{loading ? "Signing up..." : "Submit"}
+              </button>
+            </div>
           </AuthPanelWide>
       }
     </>

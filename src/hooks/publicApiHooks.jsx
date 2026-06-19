@@ -63,4 +63,4 @@ function useForwardDashboard(){
     },[access])
 }
 
-export {useCsrf, useColleges, useForwardDashboard};
+export { useCsrf, useColleges, useForwardDashboard };
