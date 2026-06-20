@@ -2,6 +2,7 @@
 import { NavBar } from "./Navbar";
 import { Outlet, Link } from "react-router";
 import { SuccessNotif, ErrorNotif } from "./Notif";
+import NavDock from "./NavDock";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -37,6 +38,9 @@ export default function Layout() {
 
           <SuccessNotif/>
           <ErrorNotif/>
+          <div className="md:hidden pt-14">
+            <NavDock/>
+          </div>
           </>
   );
 }

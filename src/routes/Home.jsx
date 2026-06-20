@@ -26,7 +26,7 @@ export default function Home() {
       <div className="py-[5rem] md:py-[12rem] bg-primary text-secondary">
         <Timeline />
       </div>
-
+      
       <div className="py-[5rem] md:py-[6rem] bg-off-white">
         <CWCReps />
       </div>

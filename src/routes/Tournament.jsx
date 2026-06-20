@@ -20,18 +20,18 @@ export default function Tournament() {
       <div className="relative overflow-hidden">
         <img src="test_img_1.png" className="w-full opacity-70"/>
 
-        <div className="absolute inset-[5%] flex flex-col text-off-white pt-24">
-          <div className="text-6xl">
+        <div className="absolute inset-[5%] flex flex-col text-off-white pt-10 md:pt-24">
+          <div className="text-2xl md:text-6xl">
             {compData.name}
           </div>
-          <div className="text-2xl pt-10">
+          <div className="text-lg md:text-2xl md:pt-10">
             Host: {compData.host}<br/>
             Date: {compData.date}<br/>  
           </div>
-          <div className="text-2xl font-bold pt-10">
+          <div className="text-lg md:text-2xl font-bold pt-10 hidden md:block">
               Registration Instructions
           </div>
-          <div className="translate-x-4">
+          <div className="translate-x-4 hidden md:block">
             Create a competitor account or log in<br/>
             <br/>
             After logging in, click on "Register Individual Events" and follow the instructions to register for your individual events.<br/>
@@ -46,11 +46,11 @@ export default function Tournament() {
           </div>
         </div>
       </div>
-      <div className="bg-off-white py-20">
-        <div className="text-secondary text-6xl px-[5%]">
+      <div className="bg-off-white py-5 md:py-20">
+        <div className="text-secondary text-2xl md:text-6xl px-[5%]">
           Registration
         </div>
-        <div className="text-primary pt-15 px-[5%]">
+        <div className="text-primary text-sm md:text-base pt-5 md:pt-15 px-[5%]">
           Early Registration Deadline: {compData.earlyReg}<br/>
           - Registration fees: ${compData.earlyRegBase} for the first event + ${compData.earlyRegEvent} per additional event<br/>
           <br/>
@@ -61,27 +61,27 @@ export default function Tournament() {
           **Base registration fee includes the cost of one event.
         </div>
       </div>
-      <div className="bg-primary text-secondary py-20">
-        <div className="text-6xl px-[5%]">
+      <div className="bg-primary text-secondary py-5 md:py-20">
+        <div className="text-2xl md:text-6xl px-[5%]">
           <a href="rules" className="hover:underline">Judging and Rules</a>
         </div>
       </div>
-      <div className="bg-off-white py-20">
-        <div className="text-secondary text-6xl px-[5%]">
+      <div className="bg-off-white py-5 md:py-20">
+        <div className="text-secondary text-2xl md:text-6xl px-[5%]">
           Competitor<br/>
           <a className="font-bold">Documentation</a>
         </div>
-        <div className="text-4xl px-[5%] pt-15 font-bold">
+        <div className="texl-xl md:text-4xl px-[5%] pt-5 md:pt-15 font-bold">
           Proof of Enrollment
         </div>
-        <div className="text-primary pt-15 px-[5%]">
+        <div className="text-primary text-sm md:text-base pt-5 md:pt-15 px-[5%]">
           Remember to prepare documentation for <a className="font-bold italic">Proof of Enrollment</a>! This is due <a className="font-bold">{compData.enrollDate}</a><br/>
-          <br/>
-          <br/>
+          <br className="hidden md:block"/>
+          <br className="hidden md:block"/>
           <br/>
           Per the Collegiate Wushu Tournament rules (which can be found in the section above):
         </div>
-        <div className="text-primary pt-15 px-[5%] translate-x-10">
+        <div className="text-primary text-sm md:text-base pt-5 md:pt-15 px-[5%] md:translate-x-10">
           <a className="font-bold">Class 1 Competitors:</a><br/>
           Proof of current enrollment is required and must be sent in with registration materials before the competition.
            The proof may consist of an approved study list, transcript, or research curriculum for the present semester or
