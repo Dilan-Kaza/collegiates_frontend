@@ -22,7 +22,7 @@ function CarouselSquare({ src }) {
           src={`/${src}`}
           fill={true}
           alt="Carousel image"
-          className="object-cover rounded-[2rem]"
+          className="h-full w-full object-cover rounded-[2rem]"
         />
       </div>
     </>

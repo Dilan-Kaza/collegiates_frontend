@@ -1,5 +1,9 @@
 # Running the App
 
+## Online dev instance
+
+https://collegiate-wushu.onrender.com/
+
 ## Requirements
 - Use latest version of node
 - Install dependencies `npm i`
