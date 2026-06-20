@@ -1,4 +1,4 @@
-import { Heading } from "./heading";
+import { Heading } from "./Heading";
 import { useState } from "react";
 
 function CWCRepsSection() {

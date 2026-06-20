@@ -11,7 +11,7 @@ import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { setSuccessMsg } from "../slices/success";
 import { validate, handleFormBlur, handleFormChange } from "../handlers/forms";
-import { MtHeader } from "../components/headers";
+import { MtHeader } from "../components/Headers";
 
 
 export default function Signup() {

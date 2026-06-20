@@ -1,6 +1,6 @@
 import { use, useState } from "react";
-import { ShortAnswer } from "../components/formComponents";
-import { MtHeader } from "../components/headers";
+import { ShortAnswer } from "../components/FormComponents";
+import { MtHeader } from "../components/Headers";
 
 export default function Register() {
     
