@@ -12,22 +12,22 @@ export default function Home() {
       <div className="relative overflow-hidden">
         <img className="w-full object-center object-fit -z-10" src="/test_img_4.png" />
         <div className="absolute inset-10 flex flex-col items-center justify-center">
-          <Heading className="text-8xl animate-fadeIn text-secondary align-middle z-10">
+          <Heading className="text-xl md:text-8xl animate-fadeIn text-secondary align-middle z-10">
             Welcome to Collegiate Wushu
           </Heading>
         </div>
       </div>
       
 
-      <div className="py-6 bg-off-white">
+      <div className="py-6 bg-off-white hidden md:block">
         <Carousel imgs={carouselImages} />
       </div>
 
-      <div className="py-[12rem] bg-primary text-secondary">
+      <div className="py-[5rem] md:py-[12rem] bg-primary text-secondary">
         <Timeline />
       </div>
-
-      <div className="py-[6rem] bg-off-white">
+      
+      <div className="py-[5rem] md:py-[6rem] bg-off-white">
         <CWCReps />
       </div>
     </>

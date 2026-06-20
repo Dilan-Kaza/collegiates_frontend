@@ -5,11 +5,11 @@ function CWCRepsSection() {
   return (
     <>
       <div className="flex flex-col items-center justify-center relative">
-        <Heading className="!text-3xl text-primary">CWC</Heading>
-        <Heading className="-mt-8 !text-7xl max-w-[50rem]">
+        <Heading className="!text-xl md:!text-3xl text-primary">CWC</Heading>
+        <Heading className="-mt-8 !text-2xl md:!text-7xl max-w-[50rem]">
           The Collegiate Wushu Committee
         </Heading>
-        <div className="tracking-tighter text-3xl mb-10 opacity-80">
+        <div className="tracking-tighter text-l md:text-3xl mb-10 opacity-80">
           With voting representatives from
         </div>
         <CWCRepGrid />
@@ -21,12 +21,11 @@ function CWCRepsSection() {
 function CWCRep({ college, pad }) {
   return (
     <>
-      <div className="h-[8rem] w-[15rem] relative">
+      <div className="md:h-[8rem] md:w-[15rem] relative">
         <img
           alt="CWC Rep"
           src={`/cwc_reps/${college}.png`}
-          fill={true}
-          className={`object-contain ${pad}`}
+          className={`object-contain ${pad} w-full h-full`}
         />
       </div>
     </>
