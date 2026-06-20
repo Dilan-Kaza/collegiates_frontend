@@ -49,6 +49,34 @@ function useColleges(){
     return colleges;
 }
 
+function useEvents(){
+
+    const [events, setEvents] = useState({});
+    
+
+    useEffect(() => {
+        
+        const init = async () => {
+        axios
+                .get("/events/", {
+                mode: "cors",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                })
+                .then((response) => setEvents(
+                Object.fromEntries(
+                    response.data.map(({ event_name, college_id }) => [college_name, college_id])
+                )
+                ))
+                .catch((err) => console.warn("Could not fetch colleges", err));
+        };
+
+        init();
+    }, []);
+
+    return events;
+}
+
 function useForwardDashboard(){
 
     const access = useSelector((state) => state.jwt.access);

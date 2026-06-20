@@ -9,7 +9,7 @@ import { setJwt } from "../slices/jwt";
 import { useNavigate } from "react-router";
 import { validate, handleFormBlur, handleFormChange } from "../handlers/forms";
 import { setSuccessMsg } from "../slices/success";
-import { MtHeader } from "../components/headers";
+import { MtHeader } from "../components/Headers";
 import { useDispatch } from "react-redux";
 
 export default function SignIn() {

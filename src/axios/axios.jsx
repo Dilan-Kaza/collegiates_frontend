@@ -2,8 +2,10 @@ import axios from "axios";
 import store from '../store'
 import { setJwt } from "../slices/jwt";
 
+const apiUrl = (import.meta.env.VITE_API_URL || 'http://localhost:8000') + '/collegiates_app';
+
 const axiosApi = axios.create({
-    baseURL: 'http://localhost:8000/collegiates_app',
+    baseURL: apiUrl,
     xsrfCookieName: 'csrftoken',
     xsrfHeaderName: 'X-CSRFToken'
 });
