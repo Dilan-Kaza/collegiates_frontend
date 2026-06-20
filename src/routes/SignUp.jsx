@@ -3,7 +3,7 @@ import {
   DatePicker,
   Dropdown,
   ShortAnswer,
-} from "../components/formComponents";
+} from "../components/FormComponents";
 import { useState } from "react";
 import axiosApi from "../axios/axios";
 import { useCsrf, useColleges, useForwardDashboard} from "../hooks/publicApiHooks";
