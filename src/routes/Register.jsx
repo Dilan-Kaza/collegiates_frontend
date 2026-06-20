@@ -14,6 +14,9 @@ export default function Register() {
     }
 
     const onAdd = () => {
+        if (selectedEvent == ""){
+            return;
+        }
         setEvents([...events, {'event_code': selectedEvent, 'nandu_str': ""}]);
         setSelectedEvent("");
         const rest = (remainingEvents => remainingEvents.filter(event => event !== selectedEvent));
@@ -21,8 +24,8 @@ export default function Register() {
     }
 
     const onRemove = (event) => {
-        setRemainingEvents([...remainingEvents, event]);
-        const rest = (events => events.filter(e => e.event_code !== event));
+        setRemainingEvents([...remainingEvents, event.event_code]);
+        const rest = (events => events.filter(e => e.event_code !== event.event_code));
         setEvents(rest);
     }
 
@@ -56,7 +59,9 @@ export default function Register() {
                         </div>
                     </div>
                 ))}
-
+                <div>
+                    Add an Event!
+                </div>
                 <div className="relative flex flex-col gap-2 transition-outline ease-in-out duration-200 border border-gray-300 focus-within:outline-2 focus-within:outline-primary rounded-md py-[10px] px-2">
                     <select
                         onChange={handleChange}
@@ -69,7 +74,15 @@ export default function Register() {
                             ))}
                     </select>
                 </div>
-                <button className="btn btn-primary my-4" onClick={onAdd}>Add</button>
+                <div className="flex flex-row">
+                    <div className="felx">
+                        <button className="btn btn-primary my-4" onClick={onAdd}>Add</button>
+                    </div>
+                    <div className="flex flex-1"/>
+                    <div className="flex">
+                        <button className="btn btn-primary my-4">Submit</button>
+                    </div>
+                </div>
             </div>
         </div>
     );

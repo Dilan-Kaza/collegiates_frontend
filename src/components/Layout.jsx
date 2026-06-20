@@ -22,10 +22,10 @@ export default function Layout() {
   return (<>
           <div
                 id="bg-component"
-                className="bg-tertiary fixed h-screen w-full absolute -top-[0svh] left-0 -z-20"
+                className="bg-tertiary fixed h-screen w-screen absolute -top-[0svh] left-0 -z-20"
             />
 
-            <div className="">
+            <div className="hidden md:block">
                 <NavBar/>
             </div>
             <div
