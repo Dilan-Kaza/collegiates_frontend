@@ -7,6 +7,8 @@ https://collegiate-wushu.onrender.com/
 ## Requirements
 - Use latest version of node
 - Install dependencies `npm i`
+- Backend must be running
+  - Backend code on https://github.com/vanliu253/collegiates_backend
 ## Run
 
 Run `npm run dev`, the app should run on port 3000.
