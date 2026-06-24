@@ -2,12 +2,17 @@ import { use, useState } from "react";
 import { ShortAnswer } from "./FormComponents";
 import { MtHeader } from "./Headers";
 import axiosApi from "../axios/axios";
+import { useEvents } from "../hooks/userApiHooks";
+import { useEffect } from "react";
 
 export default function EventSelection() {
     
     const [events, setEvents] = useState([]);
+    const [eventOrder, setEventOrder] = useState([]);
     const [remainingEvents, setRemainingEvents] = useState(["Northern Barehand Nandu", "Southern Barehand Nandu", "Northern Barehand", "Southern Barehand", "Northern Staff", "Southern Staff"]);
     const [selectedEvent, setSelectedEvent] = useState("");
+
+    const eventsFromApi = useEvents();
 
     const handleChange = (e) =>{
         const { name, value } = e.target;
@@ -20,18 +25,19 @@ export default function EventSelection() {
         }
         setEvents([...events, {'event_code': selectedEvent, 'nandu_str': ""}]);
         setSelectedEvent("");
-        const rest = (remainingEvents => remainingEvents.filter(event => event !== selectedEvent));
+        const rest = (remainingEvents => remainingEvents.filter(e => e !== selectedEvent));
         setRemainingEvents(rest);
     }
 
     const onRemove = (event) => {
-        setRemainingEvents([...remainingEvents, event.event_code]);
+        setRemainingEvents([...remainingEvents, event.event_code].sort((a, b) => eventOrder.indexOf(a) - eventOrder.indexOf(b)));
         const rest = (events => events.filter(e => e.event_code !== event.event_code));
         setEvents(rest);
     }
 
-    const isNandu = (event) =>{
-        return event.event_code.includes("Nandu");
+    const isNandu = (eventName) =>{
+        const eventData = eventsFromApi.find(item => item.event_name === eventName);
+        return eventData.is_nandu;
     }
 
     const getNanduStr = (event) =>{
@@ -54,6 +60,12 @@ export default function EventSelection() {
                 .catch(err => console.log(err));
     }
 
+    useEffect(()=>{
+        const eventsList = eventsFromApi.map(({event_name})=>event_name);
+        setRemainingEvents(eventsList);
+        setEventOrder(eventsList);
+    },[eventsFromApi]);
+
     return (
         <div>
       
@@ -65,7 +77,7 @@ export default function EventSelection() {
                     <div key={event.event_code} className="flex flex-row rounded-lg border border-gray-300 py-[10px] px-2 items-center">
                         <div className="flex-1 flex-col">
                             <div className="flex mx-4">{event.event_code}</div>
-                            {isNandu(event) ? <div className="flex flex-1flex-row flex-nowrap">
+                            {isNandu(event.event_code) ? <div className="flex flex-1flex-row flex-nowrap">
                                 <div className="flex mx-4">
                                     Nandu Code: 
                                 </div>

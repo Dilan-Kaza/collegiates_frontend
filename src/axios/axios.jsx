@@ -52,7 +52,7 @@ axiosApi.interceptors.response.use(
         })
           .then((token) => {
             originalRequest.headers['Authorization'] = `Bearer ${token}`;
-            return api(originalRequest); // Retry original request
+            return axiosApi(originalRequest); // Retry original request
           })
           .catch((err) => Promise.reject(err));
       }

@@ -36,4 +36,29 @@ function useCurrentUser(){
   return userInfo;
 }
 
-export { useCurrentUser };
+function useEvents(){
+
+    const [events, setEvents] = useState([]);
+    
+
+    useEffect(() => {
+        
+        const init = async () => {
+        axiosApi
+                .get("/events/", {
+                mode: "cors",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                })
+                .then((response) => setEvents(
+                    response.data
+                ))
+                .catch((err) => console.warn("Could not fetch events", err));
+        };
+
+        init();
+    }, []);
+    return events;
+}
+
+export { useCurrentUser, useEvents  };
