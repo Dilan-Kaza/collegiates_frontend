@@ -69,7 +69,7 @@ export default function SignIn() {
 
   return (
     <>
-      <MtHeader/>
+      <div className="hidden sm:block"><MtHeader/></div>
       <div
         id="bg-component"
         className="bg-secondary h-screen w-full skew-y-6 absolute -top-[50svh] left-0 -z-20"

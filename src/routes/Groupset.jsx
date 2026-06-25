@@ -38,13 +38,13 @@ export default function Groupset(){
 
     return(
         <>
-            <MtHeader/>
-            <div className="relative overflow-hidden bg-primary rounded-3xl mx-6 mt-6 px-6 pb-12 flex justify-center">
+            <div className="hidden sm:block"><MtHeader/></div>
+            <div className="relative overflow-hidden bg-primary rounded-3xl mx-6 mt-2 sm:mt-6 px-6 pb-6 sm:pb-12 flex justify-center">
                 <div className="absolute -top-32 -left-32 w-[28rem] h-[28rem] rounded-full bg-secondary/25 blur-3xl pointer-events-none" />
                 <div className="absolute top-1/2 -right-24 w-80 h-80 rounded-full bg-secondary/20 blur-3xl pointer-events-none" />
                 <div className="absolute -bottom-24 left-1/3 w-72 h-72 rounded-full bg-tertiary/50 blur-3xl pointer-events-none" />
                 <div className="absolute top-1/4 left-1/2 w-48 h-48 rounded-full bg-secondary/10 blur-2xl pointer-events-none" />
-                <div className="relative z-10 mt-10 w-full max-w-sm">
+                <div className="relative z-10 mt-4 sm:mt-10 w-full max-w-sm">
                 <div className="grow bg-off-white max-w-sm rounded-xl border border-brown/50 p-8 flex flex-col gap-6">
                     <div className="flex rounded-lg border border-brown/20 overflow-hidden">
                         <button

@@ -5,16 +5,16 @@ function AuthPanel(props, onSubmit) {
   return (
     <>
       <div className="flex items-center justify-center">
-        <div className="relative grow bg-off-white max-w-[30rem] mt-10 h-full rounded-xl border border-brown/50">
+        <div className="relative grow min-w-0 bg-off-white max-w-[30rem] mt-0 sm:mt-10 h-full rounded-xl border border-brown/50">
           <div
             id="items-inside-box"
             className="flex flex-col items-center gap-4 "
           >
-            <Heading className="mt-6 !text-4xl !p-2 !animate-none">
+            <Heading className="mt-2 sm:mt-6 !text-4xl !p-2 !animate-none">
               {props.title}
             </Heading>
             <form
-              className="self-stretch px-12 flex flex-col gap-6"
+              className="self-stretch px-4 sm:px-12 flex flex-col gap-6"
               onSubmit={onSubmit}
             >
               {props.children}
@@ -50,7 +50,7 @@ function AuthPanelWide(props, onSubmit) {
             id="items-inside-box"
             className="flex flex-col items-center gap-4 "
           >
-            <Heading className="mt-6 !text-4xl !p-2 !animate-none">
+            <Heading className="mt-2 sm:mt-6 !text-4xl !p-2 !animate-none">
               {props.title}
             </Heading>
             <form

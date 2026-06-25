@@ -31,7 +31,7 @@ const rules = [
 
 export default function Rules() {
   return (
-    <div className="bg-off-white min-h-screen relative overflow-hidden">
+    <div className="bg-off-white sm:min-h-screen relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0 z-0">
         <div className="absolute -bottom-40 -right-40 w-[32rem] h-[32rem] rounded-full border-[3rem] border-primary/60" />
         <div className="absolute -top-24 -left-24 w-[22rem] h-[22rem] rounded-full border-[2.5rem] border-primary/50" />
@@ -44,9 +44,9 @@ export default function Rules() {
         <div className="absolute bottom-[32%] right-[30%] w-5 h-5 rounded-full bg-secondary/40" />
       </div>
       <div className="relative z-10">
-        <ImgHeader />
+        <div className="hidden sm:block"><ImgHeader /></div>
         <CardCarousel cards={rules} />
-        <div className="px-1 text-primary/20 text-xs pb-2">this page is vibecoded, pls take your complaints to dilan for now</div>
+        <div className="hidden sm:block px-1 text-primary/20 text-xs pb-2">this page is vibecoded, pls take your complaints to dilan for now</div>
       </div>
     </div>
   );
