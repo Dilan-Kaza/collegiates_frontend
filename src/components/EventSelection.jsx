@@ -4,9 +4,14 @@ import { MtHeader } from "./Headers";
 import axiosApi from "../axios/axios";
 import { useEvents } from "../hooks/userApiHooks";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
-export default function EventSelection() {
+export default function EventSelection({registeredEvents}) {
     
+    const nav = useNavigate();
+    const access = useSelector(state => state.jwt.access);
+
     const [events, setEvents] = useState([]);
     const [eventOrder, setEventOrder] = useState([]);
     const [remainingEvents, setRemainingEvents] = useState(["Northern Barehand Nandu", "Southern Barehand Nandu", "Northern Barehand", "Southern Barehand", "Northern Staff", "Southern Staff"]);
@@ -69,14 +74,24 @@ export default function EventSelection() {
     }
 
     const onSubmit = () =>{
-        axiosApi.post('/competitor/registration/', events)
-                .then(res => console.log(res))
+        axiosApi.post('/competitor/registration/', events, {
+                    mode: "cors",
+                    headers: {
+                        Authorization: `Bearer ${access}`,
+                    }
+                })
+                .then(res => nav('/dashboard'))
                 .catch(err => console.log(err));
     }
 
     useEffect(()=>{
         const eventsList = eventsFromApi.map(({event_code})=>event_code);
-        setRemainingEvents(eventsList);
+        if (registeredEvents){
+            const rest = (eventsList => eventsList.filter(e => !registeredEvents?.includes(e)));
+            setRemainingEvents(rest);
+        } else {
+            setRemainingEvents(eventsList);
+        }
         setEventOrder(eventsList);
     },[eventsFromApi]);
 

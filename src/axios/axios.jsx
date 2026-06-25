@@ -17,20 +17,8 @@ axiosApi.defaults.withXSRFToken = true;
 axiosApi.defaults.headers.common['Accept'] = '*/*';
 
 let isRefreshing = false;
-let failedQueue = [];
 
 // Helper to process the queued requests after a successful token refresh
-const processQueue = (error, token = null) => {
-  failedQueue.forEach((prom) => {
-    if (error) {
-      prom.reject(error);
-    } else {
-      prom.resolve(token);
-    }
-  });
-
-  failedQueue = [];
-};
 
 function getCookie(name) {
   const value = `; ${document.cookie}`;
@@ -44,7 +32,7 @@ axiosApi.interceptors.response.use(
     const originalRequest = error.config;
 
     // Check if error is 401 and the request hasn't been retried yet
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if ((error.response?.status === 401 || error.response?.status === 403) && !originalRequest._retry) {
       
       // If a refresh is already in progress, queue this request
       if (isRefreshing) {
@@ -72,20 +60,8 @@ axiosApi.interceptors.response.use(
           if (data.access) {
             store.dispatch(setJwt(data.access));
           }
-
-          // Update default instance header and original request header
-          originalRequest.headers['Authorization'] = `Bearer ${data.access}`;
-
-          // Resolve all requests in the queue with the new token
-          processQueue(null, data.access);
-
-          // Retry the original request
-          resolve(axiosApi(originalRequest));
         })
         .catch((err) => {
-          // If the refresh token itself is invalid/expired, log out the user
-          processQueue(err, null);
-        //   window.location.href = '/signin'; // Or use your router's redirect
           reject(err);
         })
         .finally(() => {

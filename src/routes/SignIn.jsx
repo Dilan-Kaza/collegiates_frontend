@@ -71,7 +71,7 @@ export default function SignIn() {
   };
 
   useCsrf();
-  // useForwardDashboard();
+  useForwardDashboard();
 
   return (
     <>

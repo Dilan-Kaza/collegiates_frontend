@@ -19,6 +19,7 @@ import Dashboard from "./routes/Dashboard";
 import Register from "./routes/Register";
 import Signup from "./routes/SignUp";
 import Pdf from "./routes/Pdf";
+import UpdataRegistration from "./routes/UpdateRegistration";
 
 
 const routes = [
@@ -53,6 +54,10 @@ const routes = [
             {
                 path: "/register",
                 element: <Register/>
+            },
+            {
+                path: "/updateregistration",
+                element: <UpdataRegistration/>
             },
             {
                 path: "/signup",

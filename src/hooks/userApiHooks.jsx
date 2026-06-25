@@ -20,7 +20,6 @@ function useCurrentUser(){
             .get("/auth/users/me/", {
                 mode: "cors",
                 withCredentials: true,
-                credentials: "include",
                 headers: {
                     Authorization: `Bearer ${access}`,
                 }
@@ -39,6 +38,7 @@ function useCurrentUser(){
 function useEvents(){
 
     const [events, setEvents] = useState([]);
+    const access = useSelector((state)=>state.jwt.access);
     
 
     useEffect(() => {
@@ -47,17 +47,18 @@ function useEvents(){
         axiosApi
                 .get("/competitor/events/", {
                 mode: "cors",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${access}`,
+                 },
                 })
                 .then((response) => setEvents(
                     response.data
                 ))
                 .catch((err) => console.warn("Could not fetch events", err));
         };
-        console.log(events);
         init();
-    }, []);
+    }, [access]);
     return events;
 }
 
