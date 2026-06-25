@@ -38,8 +38,14 @@ export default function Layout() {
             </div>
 
 
-          <SuccessNotif/>
-          <ErrorNotif/>
+          <div className="fixed top-0 left-0 right-0 z-[9999] flex flex-col items-center sm:hidden">
+            <SuccessNotif/>
+            <ErrorNotif/>
+          </div>
+          <div className="hidden sm:block">
+            <SuccessNotif/>
+            <ErrorNotif/>
+          </div>
           <div className="md:hidden pt-14">
             <NavDock/>
           </div>

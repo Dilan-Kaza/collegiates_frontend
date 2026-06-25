@@ -14,9 +14,9 @@ export default function CardCarousel({ cards }) {
   const card = cards[current];
 
   return (
-    <div className="max-w-3xl mx-auto px-3 py-6 sm:px-6 sm:py-10">
-      <div ref={scrollRef} className="bg-white rounded-lg shadow p-4 sm:p-8 overflow-auto h-[75vh]">
-        <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">{card.title}</h2>
+    <div className="max-w-3xl mx-auto px-1 pt-2 pb-2 sm:px-6 sm:py-10">
+      <div ref={scrollRef} className="bg-white rounded-lg shadow p-2 sm:p-8 overflow-auto h-[70vh] sm:h-[75vh]">
+        <h2 className="text-sm sm:text-2xl font-bold mb-1 sm:mb-6">{card.title}</h2>
         {card.content}
       </div>
 
@@ -49,7 +49,7 @@ export default function CardCarousel({ cards }) {
         </button>
       </div>
 
-      <p className="text-center text-sm text-gray-400 mt-3">
+      <p className="hidden sm:block text-center text-sm text-gray-400 mt-3">
         {current + 1} / {cards.length}
       </p>
     </div>

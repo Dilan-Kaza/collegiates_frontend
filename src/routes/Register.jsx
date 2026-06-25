@@ -19,7 +19,7 @@ export default function Register() {
 
     return (
         <div>
-            <MtHeader/>
+            <div className="hidden sm:block"><MtHeader/></div>
             <EventSelection/>
         </div>
     );

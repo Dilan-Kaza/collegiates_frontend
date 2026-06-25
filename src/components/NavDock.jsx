@@ -17,7 +17,7 @@ export default function NavDock(){
     }, [userInfo]);
 
     return (
-        <div className="dock">
+        <div className="dock z-10">
             <button onClick={()=>nav("/")}>
                 <i className="bi bi-house-door"></i>
                 <span className="dock-label">Home</span>

@@ -13,3 +13,5 @@ export { default as NavDock } from "./NavDock";
 export { NavBar } from "./Navbar";
 export { SuccessNotif, ErrorNotif } from "./Notif";
 export { Timeline } from "./Timeline";
+export { default as SignUpMobile } from "./SignUpMobile";
+export { default as SignUpDesktop } from "./SignUpDesktop";
