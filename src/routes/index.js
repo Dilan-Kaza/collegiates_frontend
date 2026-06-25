@@ -1,0 +1,10 @@
+export { default as About } from "./About";
+export { default as Dashboard } from "./Dashboard";
+export { default as Groupset } from "./Groupset";
+export { default as Home } from "./Home";
+export { default as Pdf } from "./Pdf";
+export { default as Register } from "./Register";
+export { default as Rules } from "./Rules";
+export { default as SignIn } from "./SignIn";
+export { default as SignUp } from "./SignUp";
+export { default as Tournament } from "./Tournament";

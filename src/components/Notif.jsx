@@ -1,7 +1,6 @@
 "use client"
 
-import { clearSuccessMsg } from "../slices/success";
-import { clearErrorMsg } from "../slices/error";
+import { clearSuccessMsg, clearErrorMsg } from "@slices";
 import { useSelector, useDispatch } from "react-redux";
 
 

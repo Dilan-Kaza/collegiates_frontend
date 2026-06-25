@@ -1,15 +1,13 @@
-import { axiosAuth } from "../axios/axios";
+import { axiosAuth } from "@axios/axios";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setJwt } from "../slices/jwt";
-import store from "../store";
-import { useNavigate } from "react-router";
+import { setLoginStatus } from "@slices";
 
 
 function useCurrentUser(){
 
     const [userInfo, setUserInfo] = useState({});
-
+    const dispatch = useDispatch();
     const access = useSelector((state)=>state.jwt.access);
 
   useEffect(() => {
@@ -18,7 +16,10 @@ function useCurrentUser(){
 
         axiosAuth
             .get("/auth/users/me/")
-            .then((res) => setUserInfo(res.data))
+            .then((res) => {
+                setUserInfo(res.data);
+                dispatch(setLoginStatus(true));
+            })
             .catch((err) => setUserInfo(""));
     }
     getMe();
@@ -50,4 +51,22 @@ function useEvents(){
     return events;
 }
 
-export { useCurrentUser, useEvents  };
+function useGroupSetMembers(){
+
+    const [members, setMembers] = useState([]);
+    const access = useSelector((state)=>state.jwt.access);
+
+    useEffect(() => {
+        const init = async () => {
+            axiosAuth
+                .get("/competitor/groupset-members/")
+                .then((res) => setMembers(res.data))
+                .catch((err) => console.warn("Could not fetch group set members", err));
+        };
+        init();
+    }, [access]);
+
+    return members;
+}
+
+export { useCurrentUser, useEvents, useGroupSetMembers };

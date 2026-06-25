@@ -1,20 +1,14 @@
-import { AuthPanelWide } from "../components/AuthPanel";
-import {
-  DatePicker,
-  Dropdown,
-  ShortAnswer,
-} from "../components/FormComponents";
+import { AuthPanelWide, DatePicker, Dropdown, ShortAnswer, MtHeader } from "@components";
 import { useState } from "react";
-import { axiosApi } from "../axios/axios";
-import { useCsrf, useColleges, useForwardDashboard} from "../hooks/publicApiHooks";
+import { axiosApi } from "@axios/axios";
+import { useCsrf, useColleges, useForwardDashboard } from "@hooks";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
-import { setSuccessMsg } from "../slices/success";
-import { validate, handleFormBlur, handleFormChange } from "../handlers/forms";
-import { MtHeader } from "../components/Headers";
+import { setSuccessMsg } from "@slices";
+import { validate, handleFormBlur, handleFormChange } from "@handlers/forms";
 
 
-export default function Signup() {
+export default function SignUp() {
   // choices mirror the enums defined in models.py
   const skillLevels = { Beginner: "B", Intermediate: "I", Advanced: "A" };
   const genderChoices = { Male: "M", Female: "F" };

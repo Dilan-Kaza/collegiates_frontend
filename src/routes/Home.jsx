@@ -1,7 +1,4 @@
-import { Carousel } from "../components/Carousel";
-import { Timeline } from "../components/Timeline";
-import { Heading } from "../components/Heading";
-import { CWCReps } from "../components/CwcReps";
+import { Carousel, Timeline, Heading, CWCReps } from "@components";
 
 export default function Home() {
   // TODO: make more flexible to add/remove/change images

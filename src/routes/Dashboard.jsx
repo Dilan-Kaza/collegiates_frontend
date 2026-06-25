@@ -1,10 +1,8 @@
 "use client"
 
-import { useCurrentUser } from "../hooks/userApiHooks"
-import { MtHeader } from "../components/Headers";
+import { useCurrentUser, useForwardSignIn } from "@hooks";
+import { MtHeader, LogoutButton } from "@components";
 import { useNavigate } from "react-router";
-import { axiosApi } from "../axios/axios";
-import LogoutButton from "../components/LogoutButton";
 
 export default function Dashboard (){
     
@@ -12,13 +10,12 @@ export default function Dashboard (){
     const userinfo = useCurrentUser();
     const nav = useNavigate();
 
-    const handleSignout = () => {
-        handleLogout();
-    }
     
+    useForwardSignIn();
+
     return (        
         <>
-            <MtHeader/>
+            <div className="hidden md:block"><MtHeader/></div>
             <div
                 id="bg-component"
                 className="bg-gradient-to-b from-tertiary via-secondary via-100% to-primary h-[60vh] w-[80%] absolute top-20 left-[10%] -z-20 [clip-path:polygon(0%_0%,100%_0%,100%_100%,50%_88%,0%_100%)]"
@@ -48,6 +45,7 @@ export default function Dashboard (){
                                     {reg.nandu_str && <div className="text-gray-500">Nandu Code: {reg.nandu_str}</div>}
                                 </div>
                             ))}
+                            <button className="btn btn-secondary mt-2" onClick={() => nav('/groupset')}>Group Set</button>
                         </div>
                     ) : (
                         <button className="btn btn-primary" onClick={() => nav('/register')}>Register</button>

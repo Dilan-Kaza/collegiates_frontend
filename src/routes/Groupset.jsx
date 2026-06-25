@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { axiosApi } from "../axios/axios";
+import { axiosApi } from "@axios/axios";
 import { useSelector } from "react-redux";
-import { ShortAnswer } from "../components/FormComponents";
-import { MtHeader } from "../components/Headers";
+import { ShortAnswer, Dropdown, MtHeader } from "@components";
+import { useForwardSignIn, useGroupSetMembers } from "@hooks";
 
 export default function Groupset(){
 
@@ -10,6 +10,8 @@ export default function Groupset(){
     const [mode, setMode] = useState("create");
     const [createName, setCreateName] = useState("");
     const [joinName, setJoinName] = useState("");
+    const groupSetMembers = useGroupSetMembers();
+    const groupSetOptions = Object.fromEntries(groupSetMembers.map((g) => [g.team_name, g.groupset_id]));
 
     const onCreate = () => {
         axiosApi.post('/competitor/groupset/', {
@@ -31,6 +33,8 @@ export default function Groupset(){
             headers: { Authorization: `Bearer ${access}` }
         });
     };
+
+    useForwardSignIn();
 
     return(
         <>
@@ -80,9 +84,10 @@ export default function Groupset(){
                     ) : (
                         <>
                             <div className="text-2xl font-semibold text-center">Join a Team</div>
-                            <ShortAnswer
+                            <Dropdown
                                 name="joinName"
                                 label="Team Name"
+                                options={groupSetOptions}
                                 value={joinName}
                                 onChange={(e) => setJoinName(e.target.value)}
                                 required

@@ -1,6 +1,6 @@
 import axios from "axios";
-import store from '../store'
-import { setJwt } from "../slices/jwt";
+import store from '@/store'
+import { clearJwt, setJwt, setLoginStatus } from "@slices";
 
 const apiUrl = (import.meta.env.VITE_API_URL || 'http://localhost:8000') + '/collegiates_app';
 
@@ -78,6 +78,7 @@ axiosAuth.interceptors.response.use(
         })
         .catch((err) => {
           reject(err);
+          store.dispatch(setLoginStatus(false));
         })
         .finally(() => {
           isRefreshing = false;

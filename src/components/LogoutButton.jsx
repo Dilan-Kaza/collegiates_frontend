@@ -1,15 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
-import { axiosAuth } from "../axios/axios";
-import { clearJwt } from "../slices/jwt";
+import { axiosAuth } from "@axios/axios";
+import { clearJwt, setSuccessMsg, setLoginStatus } from "@slices";
 import { useDispatch, useSelector } from "react-redux";
-import { setSuccessMsg } from "../slices/success";
 
 
 export default function LogoutButton() {
     const access = useSelector(state => state.jwt.access);
     const dispatch = useDispatch();
-    const nav = useNavigate();
     const [loggingOut, setLoggingOut] = useState(false);
 
     const handleLogout = () => {
@@ -18,7 +15,7 @@ export default function LogoutButton() {
         .then(() => {
             dispatch(clearJwt());
             dispatch(setSuccessMsg("Successfully logged out!"));
-            nav('/');
+            dispatch(setLoginStatus(false));
         })
         .catch((err) => {
             console.warn(err);

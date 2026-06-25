@@ -1,4 +1,4 @@
-import { MtHeader } from "../components/Headers";
+import { MtHeader } from "@components";
 
 export default function Pdf({src}){
     return (

@@ -1,23 +1,18 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router";
-import Layout from "./components/Layout";
+import { Layout } from "@components";
 
 function Root() {
   const { pathname } = useLocation();
   useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
   return <Layout />;
 }
-import Home from "./routes/Home";
-import Tournament from "./routes/Tournament";
-import Rules from "./routes/Rules";
-import About from "./routes/About";
-import { createBrowserRouter, RouterProvider } from "react-router";
-import SignIn from "./routes/SignIn";
-import Dashboard from "./routes/Dashboard";
-import Register from "./routes/Register";
-import Signup from "./routes/SignUp";
-import Pdf from "./routes/Pdf";
-import Groupset from "./routes/Groupset";
+import { createBrowserRouter } from "react-router";
+import {
+  Home, Tournament, Rules, About,
+  SignIn, Dashboard, Register, SignUp,
+  Pdf, Groupset,
+} from "@routes";
 
 
 const routes = [
@@ -59,7 +54,7 @@ const routes = [
             },
             {
                 path: "/signup",
-                element: <Signup/>
+                element: <SignUp/>
             },
             {
                 path: "/rules/collegiates",
