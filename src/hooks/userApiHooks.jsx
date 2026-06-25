@@ -1,4 +1,4 @@
-import axiosApi from "../axios/axios";
+import { axiosAuth } from "../axios/axios";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setJwt } from "../slices/jwt";
@@ -16,14 +16,8 @@ function useCurrentUser(){
 
     const getMe = async () => {
 
-        axiosApi
-            .get("/auth/users/me/", {
-                mode: "cors",
-                withCredentials: true,
-                headers: {
-                    Authorization: `Bearer ${access}`,
-                }
-            })
+        axiosAuth
+            .get("/auth/users/me/")
             .then((res) => setUserInfo(res.data))
             .catch((err) => setUserInfo(""));
     }
@@ -44,14 +38,8 @@ function useEvents(){
     useEffect(() => {
         
         const init = async () => {
-        axiosApi
-                .get("/competitor/events/", {
-                mode: "cors",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${access}`,
-                 },
-                })
+        axiosAuth
+                .get("/competitor/events/")
                 .then((response) => setEvents(
                     response.data
                 ))

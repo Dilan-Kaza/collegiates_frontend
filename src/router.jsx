@@ -1,5 +1,3 @@
-'use client'; 
-
 import React, { useEffect } from "react";
 import { useLocation } from "react-router";
 import Layout from "./components/Layout";
@@ -19,7 +17,7 @@ import Dashboard from "./routes/Dashboard";
 import Register from "./routes/Register";
 import Signup from "./routes/SignUp";
 import Pdf from "./routes/Pdf";
-import UpdataRegistration from "./routes/UpdateRegistration";
+import Groupset from "./routes/Groupset";
 
 
 const routes = [
@@ -56,8 +54,8 @@ const routes = [
                 element: <Register/>
             },
             {
-                path: "/updateregistration",
-                element: <UpdataRegistration/>
+                path: "/groupset",
+                element: <Groupset/>
             },
             {
                 path: "/signup",
@@ -85,6 +83,4 @@ const routes = [
 
 const router = createBrowserRouter(routes);
 
-export default function App() {
-    return (<RouterProvider router={router}/>);
-}
+export default router;

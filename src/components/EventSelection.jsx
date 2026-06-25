@@ -1,7 +1,7 @@
 import { use, useState } from "react";
 import { ShortAnswer } from "./FormComponents";
 import { MtHeader } from "./Headers";
-import axiosApi from "../axios/axios";
+import { axiosAuth } from "../axios/axios";
 import { useEvents } from "../hooks/userApiHooks";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
@@ -74,12 +74,7 @@ export default function EventSelection({registeredEvents}) {
     }
 
     const onSubmit = () =>{
-        axiosApi.post('/competitor/registration/', events, {
-                    mode: "cors",
-                    headers: {
-                        Authorization: `Bearer ${access}`,
-                    }
-                })
+        axiosAuth.post('/competitor/registration/', events)
                 .then(res => nav('/dashboard'))
                 .catch(err => console.log(err));
     }

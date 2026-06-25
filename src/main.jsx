@@ -5,7 +5,8 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import { Provider } from 'react-redux'
 import './index.css'
 import store from './store.jsx';
-import App from './App.jsx';
+import router from './router.jsx';
+import { RouterProvider } from 'react-router';
 
 const root = createRoot(document.getElementById('root'));
 
@@ -13,7 +14,7 @@ root.render(
   
   <StrictMode>
     <Provider store={store}>
-      <App/>
+      <RouterProvider router={router}/>
     </Provider>
   </StrictMode>
 )

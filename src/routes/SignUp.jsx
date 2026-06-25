@@ -5,7 +5,7 @@ import {
   ShortAnswer,
 } from "../components/FormComponents";
 import { useState } from "react";
-import axiosApi from "../axios/axios";
+import { axiosApi } from "../axios/axios";
 import { useCsrf, useColleges, useForwardDashboard} from "../hooks/publicApiHooks";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
