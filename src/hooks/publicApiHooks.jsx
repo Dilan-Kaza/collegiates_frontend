@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axiosApi from "../axios/axios";
+import { axiosApi } from "../axios/axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
@@ -8,11 +8,7 @@ function useCsrf(){
   useEffect(() => {
     const csrf = async () => {
         axiosApi
-            .get("/csrf/", {
-                mode: "cors",
-                withCredentials: true,
-                credentials: "include",
-            })
+            .get("/csrf/")
             .catch(() => console.warn("Could not fetch CSRF token"));
     };
 
@@ -30,11 +26,7 @@ function useColleges(){
         
         const init = async () => {
         axiosApi
-                .get("/college_data/", {
-                mode: "cors",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include",
-                })
+                .get("/college_data/")
                 .then((response) => setColleges(
                 Object.fromEntries(
                     response.data.map(({ college_name, college_id }) => [college_name, college_id])

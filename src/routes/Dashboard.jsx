@@ -2,48 +2,56 @@
 
 import { useCurrentUser } from "../hooks/userApiHooks"
 import { MtHeader } from "../components/Headers";
-import { useDispatch, useSelector } from "react-redux";
-import { clearJwt } from "../slices/jwt";
 import { useNavigate } from "react-router";
+import { axiosApi } from "../axios/axios";
+import LogoutButton from "../components/LogoutButton";
 
 export default function Dashboard (){
     
+    
     const userinfo = useCurrentUser();
-    const dispatch= useDispatch();
-    const jwt = useSelector((state)=>state.jwt.access);
     const nav = useNavigate();
+
+    const handleSignout = () => {
+        handleLogout();
+    }
     
     return (        
         <>
             <MtHeader/>
-            <div className="bg-off-white grid grid-cols-3 rounded-lg px-[10%]">
-                <div className="grid-row text-4xl p-1">
-                    <div>
-                        {userinfo.first_name} {userinfo.last_name}
+            <div
+                id="bg-component"
+                className="bg-gradient-to-b from-tertiary via-secondary via-100% to-primary h-[60vh] w-[80%] absolute top-20 left-[10%] -z-20 [clip-path:polygon(0%_0%,100%_0%,100%_100%,50%_88%,0%_100%)]"
+            />
+            <div className="bg-off-white grid grid-cols-[1fr_2fr] rounded-lg px-[5%] py-8 max-w-3xl mx-auto w-full">
+                <div className="grid-row p-1">
+                    <div className="flex flex-col gap-2">
+                        <span className="text-4xl">{userinfo.first_name} {userinfo.last_name}</span>
+                        <LogoutButton/>
                     </div>
-                    <div className="content-center">
-                        <button className="btn" onClick={()=>{
-                            dispatch(clearJwt());
-                            document.cookie = 'refresh=';
-                            console.log(jwt);
-                        }}>Sign Out</button>
+                    <div className="py-2 text-sm space-y-1">
+                        <div>email: {userinfo.email}</div>
+                        <div>gender: {userinfo.gender}</div>
+                        <div>school: {userinfo.school_name}</div>
+                        <div>student type: {userinfo.student_type}</div>
+                        <div>first comp: {userinfo.first_comp}</div>
+                        <div>skill level: {userinfo.skill_level}</div>
                     </div>
                 </div>
-                <div className="flex flex-cols-3 p-1">
-                    <div className="flex-1"/>
-                    <div className="flex-1 content-center">
-                        <button className="btn btn-primary" onClick={()=>{nav('/register')}}>Register</button>
-                    </div>
-                    <div className="flex-1"/>
-                </div>
-                <div className="p-1 py-15">
-                    email: {userinfo.email}<br/>
-                    gender: {userinfo.gender}<br/>
-                    school: {userinfo.school}<br/>
-                    student type: {userinfo.student_type}<br/>
-                    first comp: {userinfo.first_comp}<br/>
-                    skill level: {userinfo.skill_level}<br/>
-                    user type: {userinfo.user_type}
+                <div className="p-1 content-center flex flex-col items-center">
+                    {userinfo.registrations?.length > 0 ? (
+                        <div className="space-y-2 flex flex-col items-center w-full">
+                            <div className="text-lg font-semibold mb-2">Registered Events</div>
+                            {userinfo.registrations.map((reg, i) => (
+                                <div key={i} className="border border-gray-200 rounded-lg px-4 py-2 text-sm w-full text-center">
+                                    <div className="font-medium">{reg.event}</div>
+                                    {reg.nandu_str && <div className="text-gray-500">Nandu Code: {reg.nandu_str}</div>}
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <button className="btn btn-primary" onClick={() => nav('/register')}>Register</button>
+                    )}
                 </div>
             </div>
         </>

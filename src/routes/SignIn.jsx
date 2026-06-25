@@ -1,9 +1,7 @@
-"use client";
-
 import { AuthPanel } from "../components/AuthPanel";
 import { ShortAnswer } from "../components/FormComponents";
 import { useState } from "react";
-import axiosApi from "../axios/axios";
+import { axiosApi } from "../axios/axios";
 import { useCsrf, useForwardDashboard } from "../hooks/publicApiHooks";
 import { setJwt } from "../slices/jwt";
 import { useNavigate } from "react-router";
@@ -57,7 +55,6 @@ export default function SignIn() {
           credentials: "include",
         })
         .then((res)=>{
-          console.log(res.data);
           dispatch(setJwt(res.data.access));
           setError("");
           document.cookie = 'refresh=' + res.data.refresh;
@@ -71,7 +68,7 @@ export default function SignIn() {
   };
 
   useCsrf();
-  // useForwardDashboard();
+  useForwardDashboard();
 
   return (
     <>
