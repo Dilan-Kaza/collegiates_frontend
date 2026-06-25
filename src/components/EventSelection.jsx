@@ -35,14 +35,28 @@ export default function EventSelection() {
         setEvents(rest);
     }
 
-    const isNandu = (eventName) =>{
-        const eventData = eventsFromApi.find(item => item.event_name === eventName);
-        return eventData.is_nandu;
+    const getEventFromCode = (eventCode) =>{
+        return eventsFromApi.find(e => e.event_code === eventCode);
+    }
+
+    const isNandu = (eventCode) =>{
+        const foundEvent = getEventFromCode(eventCode);
+        return foundEvent?.is_nandu;
     }
 
     const getNanduStr = (event) =>{
         const foundEvent = events.find(e => e.event_code === event.event_code);
         return foundEvent?.nandu_str;
+    }
+
+    const getEventName = (eventCode) => {
+        const foundEvent = getEventFromCode(eventCode);
+        return foundEvent?.event_name;
+    }
+
+    function EventName(eventCode){
+        const eventName = getEventName(eventCode);
+        return (<>{eventName}</>);
     }
 
     const onNandu = (e, event) => {
@@ -55,13 +69,13 @@ export default function EventSelection() {
     }
 
     const onSubmit = () =>{
-        axiosApi.post('/registration/', events)
+        axiosApi.post('/competitor/registration/', events)
                 .then(res => console.log(res))
                 .catch(err => console.log(err));
     }
 
     useEffect(()=>{
-        const eventsList = eventsFromApi.map(({event_name})=>event_name);
+        const eventsList = eventsFromApi.map(({event_code})=>event_code);
         setRemainingEvents(eventsList);
         setEventOrder(eventsList);
     },[eventsFromApi]);
@@ -76,7 +90,7 @@ export default function EventSelection() {
                 {events.map(event => (
                     <div key={event.event_code} className="flex flex-row rounded-lg border border-gray-300 py-[10px] px-2 items-center">
                         <div className="flex-1 flex-col">
-                            <div className="flex mx-4">{event.event_code}</div>
+                            <div className="flex mx-4">{getEventName(event.event_code)}</div>
                             {isNandu(event.event_code) ? <div className="flex flex-1flex-row flex-nowrap">
                                 <div className="flex mx-4">
                                     Nandu Code: 
@@ -103,9 +117,9 @@ export default function EventSelection() {
                         onChange={handleChange}
                         value={selectedEvent}>
                         <option value="" disabled hidden></option>
-                            {remainingEvents.map((event, index) => (
-                                <option value={event} key={index}>
-                                    {event}
+                            {remainingEvents.map((eventCode, index) => (
+                                <option value={eventCode} key={index}>
+                                    {getEventName(eventCode)}
                                 </option>
                             ))}
                     </select>

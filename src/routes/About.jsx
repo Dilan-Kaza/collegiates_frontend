@@ -99,7 +99,7 @@ export default function About() {
           </div>
         </div>
       </div>
-      <div className="bg-off-white">
+      <div className="bg-off-white py-10 px-6">
         <CWCReps/>
       </div>
     </>

@@ -45,7 +45,7 @@ function useEvents(){
         
         const init = async () => {
         axiosApi
-                .get("/events/", {
+                .get("/competitor/events/", {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
@@ -55,7 +55,7 @@ function useEvents(){
                 ))
                 .catch((err) => console.warn("Could not fetch events", err));
         };
-
+        console.log(events);
         init();
     }, []);
     return events;

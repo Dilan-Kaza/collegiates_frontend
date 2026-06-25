@@ -3,6 +3,7 @@ import { NavBar } from "./Navbar";
 import { Outlet, Link } from "react-router";
 import { SuccessNotif, ErrorNotif } from "./Notif";
 import NavDock from "./NavDock";
+import BackgroundShapes from "./BackgroundShapes";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -25,6 +26,7 @@ export default function Layout() {
                 id="bg-component"
                 className="bg-tertiary fixed h-screen w-screen absolute -top-[0svh] left-0 -z-20"
             />
+            <BackgroundShapes />
 
             <div className="hidden md:block">
                 <NavBar/>

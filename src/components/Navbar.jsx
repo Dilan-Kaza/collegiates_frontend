@@ -1,7 +1,6 @@
-import { Link, useNavigate }from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useCurrentUser } from "../hooks/userApiHooks";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const tabs = ["Tournament", "Rules", "About"];
 
