@@ -14,6 +14,7 @@ export default function EventSelection({registeredEvents}) {
     const [eventOrder, setEventOrder] = useState([]);
     const [remainingEvents, setRemainingEvents] = useState(["Northern Barehand Nandu", "Southern Barehand Nandu", "Northern Barehand", "Southern Barehand", "Northern Staff", "Southern Staff"]);
     const [selectedEvent, setSelectedEvent] = useState("");
+    const [confirming, setConfirming] = useState(false);
 
     const eventsFromApi = useEvents();
 
@@ -71,7 +72,7 @@ export default function EventSelection({registeredEvents}) {
             setEvents(newEvents);
     }
 
-    const onSubmit = () =>{
+    const onConfirm = () =>{
         axiosAuth.post('/competitor/registration/', events)
                 .then(res => nav('/dashboard'))
                 .catch(err => console.log(err));
@@ -88,9 +89,28 @@ export default function EventSelection({registeredEvents}) {
         setEventOrder(eventsList);
     },[eventsFromApi]);
 
+    if (confirming) return (
+        <div className="bg-primary rounded-lg mx-[10%] px-[5%] py-5">
+            <div className="text-4xl text-off-white py-10">Confirm Registration</div>
+            <div className="flex flex-col gap-3 mb-6">
+                {events.map(event => (
+                    <div key={event.event_code} className="bg-off-white rounded-lg px-4 py-3 border-l-4 border-secondary">
+                        <div className="font-medium text-primary">{getEventName(event.event_code)}</div>
+                        {event.nandu_str && (
+                            <div className="text-sm text-secondary">Nandu Code: {event.nandu_str}</div>
+                        )}
+                    </div>
+                ))}
+            </div>
+            <div className="flex justify-between">
+                <button className="btn btn-ghost text-off-white" onClick={() => setConfirming(false)}>Back</button>
+                <button className="btn btn-secondary" onClick={onConfirm}>Confirm</button>
+            </div>
+        </div>
+    );
+
     return (
         <div>
-      
             <div className="bg-off-white rounded-lg mx-[10%] px-[5%] py-5">
                 <div className="text-4xl text-secondary py-10">
                     Registration
@@ -101,7 +121,7 @@ export default function EventSelection({registeredEvents}) {
                             <div className="flex mx-4">{getEventName(event.event_code)}</div>
                             {isNandu(event.event_code) ? <div className="flex flex-1flex-row flex-nowrap">
                                 <div className="flex mx-4">
-                                    Nandu Code: 
+                                    Nandu Code:
                                 </div>
                                 <div className="flex flex-1 border-b">
                                     <input
@@ -138,7 +158,7 @@ export default function EventSelection({registeredEvents}) {
                     </div>
                     <div className="flex flex-1"/>
                     <div className="flex">
-                        <button className="btn btn-primary my-4" onClick={onSubmit}>Submit</button>
+                        <button className="btn btn-primary my-4" onClick={() => setConfirming(true)}>Submit</button>
                     </div>
                 </div>
             </div>

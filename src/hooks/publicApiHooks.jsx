@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { axiosApi } from "@axios/axios";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router";
 
 function useCsrf(){
 
@@ -42,4 +40,23 @@ function useColleges(){
 }
 
 
-export { useCsrf, useColleges};
+function useOrganizerSettings() {
+
+    const [settings, setSettings] = useState({});
+
+    useEffect(() => {
+        const init = async () => {
+            axiosApi
+                .get("/organizer/settings/")
+                .then((res) => setSettings(res.data))
+                .catch((err) => console.warn("Could not fetch organizer settings", err));
+        };
+
+        init();
+    }, []);
+
+    return settings;
+}
+
+
+export { useCsrf, useColleges, useOrganizerSettings };
