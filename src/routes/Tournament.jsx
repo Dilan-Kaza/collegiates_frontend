@@ -1,3 +1,4 @@
+import { useOrganizerSettings } from "@/hooks";
 import { useState } from "react";
 import { Link } from "react-router";
 
@@ -5,16 +6,29 @@ export default function Tournament() {
 
   const placeholderDate = {"name":"Tournament",
                            "host":"University of College, Lmao",
-                           "date":"Now",
-                           "earlyReg":"last month",
+                           "comp_date":"Now",
+                           "early_reg_end":"last month",
                            "earlyRegBase":"100",
                            "earlyRegEvent":"20",
-                           "lateReg":"last month",
+                           "reg_end":"last month",
                            "lateRegBase":"500",
                            "lateRegEvent":"70",
                            "enrollDate":"yesterday"};
 
-  const [compData, SetCompData] = useState(placeholderDate);
+  // const [compData, SetCompData] = useState(placeholderDate);
+
+  const compData = useOrganizerSettings();
+
+  const dateToStr = (dateStr) => {
+    if (!dateStr) return "";
+    const dateObj = new Date(`${dateStr}T00:00:00`);
+    return dateObj.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
+  }
 
   return (
     <>
@@ -23,11 +37,11 @@ export default function Tournament() {
 
         <div className="absolute inset-[5%] flex flex-col text-off-white pt-10 md:pt-24">
           <div className="text-2xl md:text-6xl">
-            {compData.name}
+            Tournament
           </div>
           <div className="text-lg md:text-2xl md:pt-10">
             Host: {compData.host}<br/>
-            Date: {compData.date}<br/>  
+            Date: {dateToStr(compData.comp_date)}<br/>  
           </div>
           <div className="text-lg md:text-2xl font-bold pt-10 hidden md:block">
               Registration Instructions
@@ -52,10 +66,10 @@ export default function Tournament() {
           Registration
         </div>
         <div className="text-primary text-sm md:text-base pt-5 md:pt-15 px-[5%]">
-          Early Registration Deadline: {compData.earlyReg}<br/>
+          Early Registration Deadline: {dateToStr(compData.early_reg_end)}<br/>
           - Registration fees: ${compData.earlyRegBase} for the first event + ${compData.earlyRegEvent} per additional event<br/>
           <br/>
-          Early Registration Deadline: {compData.lateReg}<br/>
+          Late Registration Deadline: {dateToStr(compData.reg_end)}<br/>
           - Registration fees: ${compData.lateRegBase} for the first event + ${compData.lateRegEvent} per additional event<br/>
           <br/>
           <br/>
@@ -76,7 +90,7 @@ export default function Tournament() {
           Proof of Enrollment
         </div>
         <div className="text-primary text-sm md:text-base pt-5 md:pt-15 px-[5%]">
-          Remember to prepare documentation for <a className="font-bold italic">Proof of Enrollment</a>! This is due <a className="font-bold">{compData.enrollDate}</a><br/>
+          Remember to prepare documentation for <a className="font-bold italic">Proof of Enrollment</a>! This is due <a className="font-bold">{dateToStr(compData.enrollDate)}</a><br/>
           <br className="hidden md:block"/>
           <br className="hidden md:block"/>
           <br/>
