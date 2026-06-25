@@ -21,7 +21,7 @@ function CWCRepsSection() {
 function CWCRep({ college, pad }) {
   return (
     <>
-      <div className="md:h-[8rem] md:w-[15rem] relative">
+      <div className="h-[4rem] w-full md:h-[8rem] md:w-[15rem] relative">
         <img
           alt="CWC Rep"
           src={`/cwc_reps/${college}.png`}
@@ -50,7 +50,7 @@ function CWCRepGrid() {
   const [idx, setIdx] = useState([0, 1, 2, 3, 4, 5]);
   return (
     <div>
-      <div className="grid grid-cols-3 gap-y-6 gap-x-24">
+      <div className="grid grid-cols-3 gap-4 md:gap-y-6 md:gap-x-24">
         {idx.map((idx, i) => (
           <div
             key={`${i}`}

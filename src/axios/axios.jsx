@@ -6,6 +6,7 @@ const apiUrl = (import.meta.env.VITE_API_URL || 'http://localhost:8000') + '/col
 
 const axiosApi = axios.create({
     baseURL: apiUrl,
+    withCredentials: true,
     xsrfCookieName: 'csrftoken',
     xsrfHeaderName: 'X-CSRFToken'
 });
@@ -52,7 +53,7 @@ axiosApi.interceptors.response.use(
         })
           .then((token) => {
             originalRequest.headers['Authorization'] = `Bearer ${token}`;
-            return api(originalRequest); // Retry original request
+            return axiosApi(originalRequest); // Retry original request
           })
           .catch((err) => Promise.reject(err));
       }

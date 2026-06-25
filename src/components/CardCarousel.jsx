@@ -23,7 +23,7 @@ export default function CardCarousel({ cards }) {
       <div className="grid grid-cols-3 items-center mt-4 sm:mt-6">
         <button
           onClick={prev}
-          className={`btn btn-sm sm:btn-md bg-off-white text-primary justify-self-start ${current === 0 ? "invisible" : ""}`}
+          className={`btn btn-sm sm:btn-md bg-white text-primary justify-self-start ${current === 0 ? "invisible" : ""}`}
         >
           Previous
         </button>

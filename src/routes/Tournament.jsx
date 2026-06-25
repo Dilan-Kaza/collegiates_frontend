@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 
 export default function Tournament() {
 
@@ -63,7 +64,7 @@ export default function Tournament() {
       </div>
       <div className="bg-primary text-secondary py-5 md:py-20">
         <div className="text-2xl md:text-6xl px-[5%]">
-          <a href="rules" className="hover:underline">Judging and Rules</a>
+          <Link to="/rules" className="hover:underline">Judging and Rules</Link>
         </div>
       </div>
       <div className="bg-off-white py-5 md:py-20">

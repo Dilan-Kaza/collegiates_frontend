@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "../axios/axios";
+import axiosApi from "../axios/axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
@@ -7,7 +7,7 @@ function useCsrf(){
 
   useEffect(() => {
     const csrf = async () => {
-        axios
+        axiosApi
             .get("/csrf/", {
                 mode: "cors",
                 withCredentials: true,
@@ -29,7 +29,7 @@ function useColleges(){
     useEffect(() => {
         
         const init = async () => {
-        axios
+        axiosApi
                 .get("/college_data/", {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },
@@ -49,33 +49,7 @@ function useColleges(){
     return colleges;
 }
 
-function useEvents(){
 
-    const [events, setEvents] = useState({});
-    
-
-    useEffect(() => {
-        
-        const init = async () => {
-        axios
-                .get("/events/", {
-                mode: "cors",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include",
-                })
-                .then((response) => setEvents(
-                Object.fromEntries(
-                    response.data.map(({ event_name, college_id }) => [college_name, college_id])
-                )
-                ))
-                .catch((err) => console.warn("Could not fetch colleges", err));
-        };
-
-        init();
-    }, []);
-
-    return events;
-}
 
 function useForwardDashboard(){
 
@@ -91,4 +65,4 @@ function useForwardDashboard(){
     },[access])
 }
 
-export { useCsrf, useColleges, useForwardDashboard };
+export { useCsrf, useColleges, useForwardDashboard};

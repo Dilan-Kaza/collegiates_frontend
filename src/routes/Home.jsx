@@ -23,11 +23,11 @@ export default function Home() {
         <Carousel imgs={carouselImages} />
       </div>
 
-      <div className="py-[5rem] md:py-[12rem] bg-primary text-secondary">
+      <div className="py-8 md:py-[12rem] bg-primary text-secondary">
         <Timeline />
       </div>
-      
-      <div className="py-[5rem] md:py-[6rem] bg-off-white">
+
+      <div className="py-8 md:py-[6rem] bg-off-white">
         <CWCReps />
       </div>
     </>
