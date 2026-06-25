@@ -1,8 +1,6 @@
-import { use, useState } from "react";
-import { ShortAnswer } from "./FormComponents";
-import { MtHeader } from "./Headers";
-import { axiosAuth } from "../axios/axios";
-import { useEvents } from "../hooks/userApiHooks";
+import { useState } from "react";
+import { axiosAuth } from "@axios/axios";
+import { useEvents } from "@hooks";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";

@@ -1,7 +1,6 @@
-import { MtHeader } from "../components/Headers";
-import EventSelection from "../components/EventSelection";
+import { MtHeader, EventSelection } from "@components";
 import { useEffect } from "react";
-import { useCurrentUser } from "../hooks/userApiHooks";
+import { useCurrentUser, useForwardSignIn } from "@hooks";
 import { useNavigate } from "react-router";
 
 export default function Register() {
@@ -15,6 +14,8 @@ export default function Register() {
             nav('/dashboard');
         }
     },[userinfo]);
+
+    useForwardSignIn();
 
     return (
         <div>

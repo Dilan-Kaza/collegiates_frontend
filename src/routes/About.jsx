@@ -1,5 +1,4 @@
-import { CWCReps } from "../components/CwcReps";
-import { ImgHeader } from "../components/Headers";
+import { CWCReps, ImgHeader } from "@components";
 
 export default function About() {
   return (

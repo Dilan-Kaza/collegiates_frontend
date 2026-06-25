@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+      "@components/*": ["./components/*"],
+      "@hooks/*": ["./hooks/*"],
+      "@slices/*": ["./slices/*"],
+      "@routes/*": ["./routes/*"],
+      "@axios/*": ["./axios/*"],
+      "@handlers/*": ["./handlers/*"],
+      "@assets/*": ["./assets/*"]
+    }
+  }
+}

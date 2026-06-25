@@ -1,18 +1,18 @@
-"use client"
-import { ImgHeader } from "../components/Headers";
-import CardCarousel from "../components/CardCarousel";
-import OfficialRules from "../components/rules/OfficialRules";
-import Eligibility from "../components/rules/Eligibility";
-import Awards from "../components/rules/Awards";
-import SkillLevel from "../components/rules/SkillLevel";
-import AllAround from "../components/rules/AllAround";
-import TeamCompetition from "../components/rules/TeamCompetition";
-import GroupSet from "../components/rules/GroupSet";
-import AllIndividual from "../components/rules/AllIndividual";
-import NanduIndividual from "../components/rules/NanduIndividual";
-import GeneralFormat from "../components/rules/GeneralFormat";
-import Arbitration from "../components/rules/Arbitration";
-import Disqualification from "../components/rules/Disqualification";
+import { ImgHeader, CardCarousel } from "@components";
+import {
+  OfficialRules,
+  Eligibility,
+  Awards,
+  SkillLevel,
+  AllAround,
+  TeamCompetition,
+  GroupSetRules,
+  AllIndividual,
+  NanduIndividual,
+  GeneralFormat,
+  Arbitration,
+  Disqualification,
+} from "@components/rules";
 
 const rules = [
   { id: "official-rules",    title: "Official Rule Sets",         content: <OfficialRules /> },
@@ -21,7 +21,7 @@ const rules = [
   { id: "skill-level",       title: "3. Skill Level",             content: <SkillLevel /> },
   { id: "all-around",        title: "4. All-Around Champions",    content: <AllAround /> },
   { id: "team",              title: "5. Team Competition",        content: <TeamCompetition /> },
-  { id: "group-set",         title: "6. Group Set Event",         content: <GroupSet /> },
+  { id: "group-set",         title: "6. Group Set Event",         content: <GroupSetRules /> },
   { id: "individual",        title: "7. All Individual Events",   content: <AllIndividual /> },
   { id: "nandu",             title: "8. Nandu Individual Events", content: <NanduIndividual /> },
   { id: "format",            title: "9. General Format",          content: <GeneralFormat /> },

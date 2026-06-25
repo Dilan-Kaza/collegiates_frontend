@@ -1,4 +1,4 @@
-export default function GroupSet() {
+export default function GroupSetRules() {
   return (
     <div className="space-y-4 sm:space-y-6">
       <div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { axiosApi } from "../axios/axios";
+import { axiosApi } from "@axios/axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
@@ -42,19 +42,4 @@ function useColleges(){
 }
 
 
-
-function useForwardDashboard(){
-
-    const access = useSelector((state) => state.jwt.access);
-    const nav = useNavigate();
-
-    useEffect(()=>{
-
-        if (access !== "") {
-            nav('/dashboard');
-        }
-
-    },[access])
-}
-
-export { useCsrf, useColleges, useForwardDashboard};
+export { useCsrf, useColleges};

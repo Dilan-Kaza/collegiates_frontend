@@ -1,13 +1,10 @@
-import { AuthPanel } from "../components/AuthPanel";
-import { ShortAnswer } from "../components/FormComponents";
+import { AuthPanel, ShortAnswer, MtHeader } from "@components";
 import { useState } from "react";
-import { axiosApi } from "../axios/axios";
-import { useCsrf, useForwardDashboard } from "../hooks/publicApiHooks";
-import { setJwt } from "../slices/jwt";
+import { axiosApi } from "@axios/axios";
+import { useCsrf, useForwardDashboard } from "@hooks";
+import { setJwt, setSuccessMsg, setLoginStatus } from "@slices";
 import { useNavigate } from "react-router";
-import { validate, handleFormBlur, handleFormChange } from "../handlers/forms";
-import { setSuccessMsg } from "../slices/success";
-import { MtHeader } from "../components/Headers";
+import { validate, handleFormBlur, handleFormChange } from "@handlers/forms";
 import { useDispatch } from "react-redux";
 
 export default function SignIn() {
@@ -59,7 +56,7 @@ export default function SignIn() {
           setError("");
           document.cookie = 'refresh=' + res.data.refresh;
           dispatch(setSuccessMsg("Sign In Succsessful"))
-          nav('/dashboard');
+          dispatch(setLoginStatus(true))
         })
         .catch((err)=>{
           setError(err.response?.data?.detail? err.response.data.detail : "Sign In failed");
