@@ -2,7 +2,7 @@ import { AuthPanel, ShortAnswer, MtHeader } from "@components";
 import { useState } from "react";
 import { axiosApi } from "@axios/axios";
 import { useCsrf, useForwardDashboard } from "@hooks";
-import { setJwt, setSuccessMsg, setLoginStatus } from "@slices";
+import { setJwt, setSuccessMsg, setLoginStatus, clearSessionCache } from "@slices";
 import { useNavigate } from "react-router";
 import { validate, handleFormBlur, handleFormChange } from "@handlers/forms";
 import { useDispatch } from "react-redux";
@@ -52,11 +52,12 @@ export default function SignIn() {
           credentials: "include",
         })
         .then((res)=>{
+          dispatch(clearSessionCache("currentUser"));
           dispatch(setJwt(res.data.access));
           setError("");
           document.cookie = 'refresh=' + res.data.refresh;
-          dispatch(setSuccessMsg("Sign In Succsessful"))
-          dispatch(setLoginStatus(true))
+          dispatch(setSuccessMsg("Sign In Succsessful"));
+          dispatch(setLoginStatus(true));
         })
         .catch((err)=>{
           setError(err.response?.data?.detail? err.response.data.detail : "Sign In failed");

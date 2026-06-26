@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { axiosAuth } from "@axios/axios";
-import { clearJwt, setSuccessMsg, setLoginStatus } from "@slices";
+import { clearJwt, setSuccessMsg, setLoginStatus, clearAllSessionCache } from "@slices";
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -16,6 +16,7 @@ export default function LogoutButton() {
             dispatch(clearJwt());
             dispatch(setSuccessMsg("Successfully logged out!"));
             dispatch(setLoginStatus(false));
+            dispatch(clearAllSessionCache());
         })
         .catch((err) => {
             console.warn(err);

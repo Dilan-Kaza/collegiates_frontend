@@ -1,6 +1,7 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 export default function OfficialRules() {
+  const nav = useNavigate();
   return (
     <div className="space-y-4">
       <p className="text-gray-700">This page compiles all rule sets utilized by the National Collegiate Wushu Tournament for easier viewing.</p>
@@ -13,7 +14,7 @@ export default function OfficialRules() {
           <h3 className="font-semibold text-primary">United States Wushu Union (USWU) Rules</h3>
           <p className="text-gray-600">All individual events are judged using USWU 2002 rules and 2004 rules addendum unless otherwise specified (e.g. nandu events).</p>
           <div className="pt-1">
-            <Link to="/rules/uswuaddendum" onClick={e => e.stopPropagation()} className="text-sm text-primary underline hover:opacity-70">View 2004 Addendum</Link>
+            <button onClick={e => { e.stopPropagation(); nav("/rules/uswuaddendum"); }} className="text-sm text-primary underline hover:opacity-70">View 2004 Addendum</button>
           </div>
         </Link>
         <Link to="/rules/iwuf" className="block border-l-4 border-l-secondary border border-gray-200 rounded-lg p-4 hover:shadow-md transition">

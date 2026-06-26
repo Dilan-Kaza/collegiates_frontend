@@ -1,17 +1,21 @@
+import { useOrganizerSettings } from "@hooks";
 import { Heading } from "./Heading";
 
 function TimelineSection() {
-  const collegiatesNum = 26;
-  const hostSchool = "University of Maryland, College Park";
+  // const collegiatesNum = 26;
+  // const hostSchool = "University of Maryland, College Park";
+
+  const compinfo = useOrganizerSettings();
+
   return (
     <>
       <div className="flex flex-col md:flex-row md:flex-wrap items-center justify-center px-6 md:px-10 gap-10 md:gap-40 md:-ml-[25rem]">
         <div id="left-side" className="w-full md:max-w-[30svw] flex flex-col gap-4">
           <Heading className="!text-2xl md:!text-7xl text-left">
-            {collegiatesNum}th Annual Collegiate Wushu Tournament
+            {compinfo.reg_year} Collegiate Wushu Tournament
           </Heading>
           <h2 className="text-lg md:text-4xl tracking-tighter opacity-80">
-            Hosted by {hostSchool}
+            Hosted by {compinfo.host}
           </h2>
         </div>
 
