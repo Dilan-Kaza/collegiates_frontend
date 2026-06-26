@@ -4,6 +4,7 @@ export { default as CardCarousel } from "./CardCarousel";
 export { Carousel, CarouselSquare } from "./Carousel";
 export { CWCReps } from "./CwcReps";
 export { default as EventSelection } from "./EventSelection";
+export { default as GroupsetList } from "./GroupsetList";
 export { ShortAnswer, Dropdown, DatePicker } from "./FormComponents";
 export { ImgHeader, MtHeader } from "./Headers";
 export { Heading } from "./Heading";

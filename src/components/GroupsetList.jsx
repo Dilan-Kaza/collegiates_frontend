@@ -1,0 +1,30 @@
+import { Link } from "react-router";
+import { useOrganizerGroupsets } from "@hooks";
+
+export default function GroupsetList() {
+
+    const groupsets = useOrganizerGroupsets();
+
+    return (
+        <>
+            {groupsets.length === 0 ? (
+                <div className="text-sm text-gray-400">No group sets found.</div>
+            ) : (
+                <div className="flex flex-col gap-3">
+                    {groupsets.map((gs) => (
+                        <Link key={gs.groupset_id} to={`/organizer/groupset/${gs.groupset_id}`} className="border border-gray-200 rounded-lg px-4 py-3 hover:bg-gray-50 transition-colors">
+                            <div className="font-medium text-dark">{gs.team_name}</div>
+                            {gs.members?.length > 0 && (
+                                <div className="mt-2 flex flex-col gap-1">
+                                    {gs.members.map((m, i) => (
+                                        <div key={i} className="text-sm text-gray-500">{m}</div>
+                                    ))}
+                                </div>
+                            )}
+                        </Link>
+                    ))}
+                </div>
+            )}
+        </>
+    );
+}

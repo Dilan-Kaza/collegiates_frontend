@@ -1,3 +1,6 @@
+export { default as Organizer } from "./Organizer";
+export { default as OrganizerGroupset } from "./OrganizerGroupset";
+export { default as OrganizerGroupsetDetail } from "./OrganizerGroupsetDetail";
 export { default as About } from "./About";
 export { default as Dashboard } from "./Dashboard";
 export { default as Groupset } from "./Groupset";

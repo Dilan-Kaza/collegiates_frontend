@@ -1,3 +1,3 @@
 export { useCsrf, useColleges, useOrganizerSettings } from "./publicApiHooks";
-export { useCurrentUser, useEvents, useGroupSetMembers } from "./userApiHooks";
+export { useCurrentUser, useEvents, useGroupSetMembers, useOrganizerGroupsets } from "./userApiHooks";
 export { useForwardDashboard, useForwardSignIn } from "./forwardHooks";

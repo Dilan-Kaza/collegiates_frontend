@@ -37,6 +37,9 @@ function NavBar() {
               {tab}
             </Link>
           ))}
+          {userInfo?.user_type === "O" && (
+            <Link to="/organizer">Organizer</Link>
+          )}
         </div>
         {username ? 
           <button className="btn btn-off-white btn-outline" onClick={()=>nav('/dashboard')}>{username}</button> :
