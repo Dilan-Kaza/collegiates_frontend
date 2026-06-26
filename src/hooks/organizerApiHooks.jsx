@@ -33,7 +33,7 @@ function useOrganizerGroupset(uuid){
             .get(`/organizer/groupset/${uuid}/`)
             .then((res) => dispatch(setSessionCache({ key: `groupset_${uuid}`, data: res.data })))
             .catch((err) => console.warn("Could not fetch groupset", err));
-    }, [access, uuid]);
+    }, [access, uuid, cached]);
 
     return cached ?? {};
 }

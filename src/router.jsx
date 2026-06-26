@@ -11,7 +11,8 @@ import { createBrowserRouter } from "react-router";
 import {
   Home, Tournament, Rules, About,
   SignIn, Dashboard, Register, SignUp,
-  Pdf, Groupset, Organizer, OrganizerGroupset, OrganizerGroupsetDetail,
+  Pdf, Groupset, Organizer, OrganizerGroupset, OrganizerGroupsetDetail, OrganizerBlog, OrganizerBlogPost,
+  News, NewsPost,
 } from "@routes";
 
 
@@ -79,6 +80,22 @@ const routes = [
             {
                 path: "/organizer/groupset",
                 element: <OrganizerGroupset/>
+            },
+            {
+                path: "/organizer/blog",
+                element: <OrganizerBlog/>
+            },
+            {
+                path: "/organizer/blog/:blog_id",
+                element: <OrganizerBlogPost/>
+            },
+            {
+                path: "/news",
+                element: <News/>
+            },
+            {
+                path: "/news/:blog_id",
+                element: <NewsPost/>
             },
             {
                 path: "/organizer/groupset/:uuid",

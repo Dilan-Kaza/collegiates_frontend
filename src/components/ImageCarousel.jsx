@@ -1,0 +1,31 @@
+function Carousel({ imgs }) {
+  return (
+    <>
+      <div className="overflow-hidden w-full relative">
+        <div className="absolute top-0 left-0 w-[25rem] h-full bg-gradient-to-r from-primary to-transparent z-10" />
+        <div className="absolute top-0 right-0 w-[25rem] h-full bg-gradient-to-l from-primary to-transparent z-10" />
+        <div className="flex gap-2 w-max animate-scroll">
+          {[...imgs, ...imgs].map((carouselImg, index) => (
+            <CarouselSquare key={index} src={carouselImg} />
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
+
+function CarouselSquare({ src }) {
+  return (
+    <>
+      <div className="bg-gray-400 h-[18rem] w-[18rem] rounded-[2rem] relative">
+        <img
+          src={`/${src}`}
+          alt="Carousel image"
+          className="h-full w-full object-cover rounded-[2rem]"
+        />
+      </div>
+    </>
+  );
+}
+
+export { Carousel, CarouselSquare };

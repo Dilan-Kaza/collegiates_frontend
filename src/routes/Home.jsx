@@ -1,8 +1,9 @@
-import { Carousel, Timeline, Heading, CWCReps } from "@components";
+import { Carousel, Timeline, Heading, CWCReps, BlogNews } from "@components";
+import { Link } from "react-router";
 
 export default function Home() {
   // TODO: make more flexible to add/remove/change images
-  const carouselImages = ["carousel/2025NQ.jpg", "carousel/2025QS.jpg", "carousel/2025GS.jpg"];
+  const carouselImages = ["carousel/2025NQ.jpg", "carousel/2025QS.jpg", "carousel/2025GS.jpg", "carousel/2026QS.JPG"];
 
   return (
     <>
@@ -16,8 +17,13 @@ export default function Home() {
       </div>
       
 
-      <div className="py-6 bg-off-white hidden md:block">
+      <div className="py-6 bg-primary hidden md:block">
         <Carousel imgs={carouselImages} />
+      </div>
+
+      <div className="py-8 bg-off-white px-[10%]">
+        <Link to="/news" className="text-2xl font-semibold text-primary mb-4 hover:underline">News</Link>
+        <BlogNews />
       </div>
 
       <div className="py-8 md:py-[12rem] bg-primary text-secondary">
