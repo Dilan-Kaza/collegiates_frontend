@@ -58,21 +58,4 @@ function useGroupSetMembers(){
     return cached ?? [];
 }
 
-function useOrganizerGroupsets(){
-
-    const dispatch = useDispatch();
-    const access = useSelector((state)=>state.jwt.access);
-    const cached = useSelector((state) => state.sessionCache.organizerGroupsets);
-
-    useEffect(() => {
-        if (cached?.length) return;
-        axiosAuth
-            .get("/organizer/groupset/")
-            .then((res) => dispatch(setSessionCache({ key: "organizerGroupsets", data: res.data })))
-            .catch((err) => console.warn("Could not fetch organizer groupsets", err));
-    }, [access]);
-
-    return cached ?? [];
-}
-
-export { useCurrentUser, useEvents, useGroupSetMembers, useOrganizerGroupsets };
+export { useCurrentUser, useEvents, useGroupSetMembers };

@@ -2,12 +2,14 @@ import { useState } from "react";
 import { axiosAuth } from "@axios/axios";
 import { useEvents } from "@hooks";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { clearSessionCache } from "@slices";
 import { useNavigate } from "react-router";
 
 export default function EventSelection({registeredEvents}) {
     
     const nav = useNavigate();
+    const dispatch = useDispatch();
     const access = useSelector(state => state.jwt.access);
 
     const [events, setEvents] = useState([]);
@@ -74,7 +76,10 @@ export default function EventSelection({registeredEvents}) {
 
     const onConfirm = () =>{
         axiosAuth.post('/competitor/registration/', events)
-                .then(res => nav('/dashboard'))
+                .then(res => {
+                    dispatch(clearSessionCache("currentUser"));
+                    nav('/dashboard');
+                })
                 .catch(err => console.log(err));
     }
 
