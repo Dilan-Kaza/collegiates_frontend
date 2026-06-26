@@ -21,7 +21,7 @@ export default function GroupsetList() {
                                 <div className="mt-2 flex flex-col gap-1">
                                     {gs.members.map((m) => (
                                         <div key={m.user_id} className="text-sm text-gray-500">
-                                            {m.name}{m.user_id === gs.leader?.user_id && " ★"}
+                                            {m.name}{m.user_id === gs.leader?.user_id && <span className="text-secondary"> ★</span>}
                                         </div>
                                     ))}
                                 </div>

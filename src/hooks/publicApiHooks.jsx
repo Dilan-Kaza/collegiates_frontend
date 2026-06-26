@@ -56,4 +56,39 @@ function useOrganizerSettings() {
 }
 
 
-export { useCsrf, useColleges, useOrganizerSettings };
+function useOrganizerBlog() {
+
+    const dispatch = useDispatch();
+    const cached = useSelector((state) => state.cache.organizerBlog);
+
+    useEffect(() => {
+        if (cached?.length) return;
+        axiosApi
+            .get("/organizer/blog/")
+            .then((res) => dispatch(setCache({ key: "organizerBlog", data: res.data })))
+            .catch((err) => console.warn("Could not fetch blog posts", err));
+    }, []);
+
+    return cached ?? [];
+}
+
+
+function useOrganizerBlogPost(blog_id) {
+
+    const dispatch = useDispatch();
+    const cached = useSelector((state) => state.cache[`blogPost_${blog_id}`]);
+
+    useEffect(() => {
+        if (!blog_id) return;
+        if (cached && Object.keys(cached).length > 0) return;
+        axiosApi
+            .get(`/organizer/blog/${blog_id}/`)
+            .then((res) => dispatch(setCache({ key: `blogPost_${blog_id}`, data: res.data })))
+            .catch((err) => console.warn("Could not fetch blog post", err));
+    }, [blog_id, cached]);
+
+    return cached ?? {};
+}
+
+
+export { useCsrf, useColleges, useOrganizerSettings, useOrganizerBlog, useOrganizerBlogPost };

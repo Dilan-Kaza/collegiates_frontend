@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router";
 import { useCurrentUser } from "@hooks";
 import { useState, useEffect } from "react";
 
-const tabs = ["Tournament", "Rules", "About"];
+const tabs = ["Tournament", "Rules", "About", "News"];
 
 function NavBar() {
 
