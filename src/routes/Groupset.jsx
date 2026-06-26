@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { axiosApi } from "@axios/axios";
+import { axiosAuth } from "@axios/axios";
 import { useSelector } from "react-redux";
 import { ShortAnswer, Dropdown, MtHeader } from "@components";
 import { useForwardSignIn, useGroupSetMembers } from "@hooks";
@@ -14,23 +14,15 @@ export default function Groupset(){
     const groupSetOptions = Object.fromEntries(groupSetMembers.map((g) => [g.team_name, g.groupset_id]));
 
     const onCreate = () => {
-        axiosApi.post('/competitor/groupset/', {
+        axiosAuth.post('/competitor/groupset/', {
             'team_name': createName,
             'members': [],
-        }, {
-            mode: "cors",
-            withCredentials: true,
-            headers: { Authorization: `Bearer ${access}` }
         });
     };
 
     const onJoin = () => {
-        axiosApi.post('/competitor/groupset-members/', {
+        axiosAuth.post('/competitor/groupset-members/', {
             'groupset': joinName
-        }, {
-            mode: "cors",
-            withCredentials: true,
-            headers: { Authorization: `Bearer ${access}` }
         });
     };
 

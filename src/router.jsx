@@ -11,7 +11,7 @@ import { createBrowserRouter } from "react-router";
 import {
   Home, Tournament, Rules, About,
   SignIn, Dashboard, Register, SignUp,
-  Pdf, Groupset,
+  Pdf, Groupset, Organizer, OrganizerGroupset, OrganizerGroupsetDetail,
 } from "@routes";
 
 
@@ -71,6 +71,18 @@ const routes = [
             {
                 path: "/rules/iwuf",
                 element: <Pdf src="/documents/iwuf_rules_taolu_2005.pdf"/>
+            },
+            {
+                path: "/organizer",
+                element: <Organizer/>
+            },
+            {
+                path: "/organizer/groupset",
+                element: <OrganizerGroupset/>
+            },
+            {
+                path: "/organizer/groupset/:uuid",
+                element: <OrganizerGroupsetDetail/>
             },
         ],
     },

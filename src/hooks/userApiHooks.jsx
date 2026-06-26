@@ -69,4 +69,22 @@ function useGroupSetMembers(){
     return members;
 }
 
-export { useCurrentUser, useEvents, useGroupSetMembers };
+function useOrganizerGroupsets(){
+
+    const [groupsets, setGroupsets] = useState([]);
+    const access = useSelector((state)=>state.jwt.access);
+
+    useEffect(() => {
+        const init = async () => {
+            axiosAuth
+                .get("/organizer/groupset/")
+                .then((res) => setGroupsets(res.data))
+                .catch((err) => console.warn("Could not fetch organizer groupsets", err));
+        };
+        init();
+    }, [access]);
+
+    return groupsets;
+}
+
+export { useCurrentUser, useEvents, useGroupSetMembers, useOrganizerGroupsets };
