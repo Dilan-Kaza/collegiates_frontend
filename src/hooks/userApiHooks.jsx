@@ -1,90 +1,78 @@
 import { axiosAuth } from "@axios/axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setLoginStatus } from "@slices";
+import { setLoginStatus, setSessionCache } from "@slices";
 
 
 function useCurrentUser(){
 
-    const [userInfo, setUserInfo] = useState({});
     const dispatch = useDispatch();
     const access = useSelector((state)=>state.jwt.access);
+    const cached = useSelector((state) => state.sessionCache.currentUser);
 
-  useEffect(() => {
-
-    const getMe = async () => {
-
+    useEffect(() => {
+        if (cached && Object.keys(cached).length > 0) return;
         axiosAuth
             .get("/auth/users/me/")
             .then((res) => {
-                setUserInfo(res.data);
+                dispatch(setSessionCache({ key: "currentUser", data: res.data }));
                 dispatch(setLoginStatus(true));
             })
-            .catch((err) => setUserInfo(""));
-    }
-    getMe();
+            .catch(() => dispatch(setSessionCache({ key: "currentUser", data: {} })));
+    }, [access]);
 
-  },[access]);
-
-
-  return userInfo;
+    return cached ?? {};
 }
 
 function useEvents(){
 
-    const [events, setEvents] = useState([]);
+    const dispatch = useDispatch();
     const access = useSelector((state)=>state.jwt.access);
-    
+    const cached = useSelector((state) => state.sessionCache.events);
 
     useEffect(() => {
-        
-        const init = async () => {
+        if (cached?.length) return;
         axiosAuth
-                .get("/competitor/events/")
-                .then((response) => setEvents(
-                    response.data
-                ))
-                .catch((err) => console.warn("Could not fetch events", err));
-        };
-        init();
+            .get("/competitor/events/")
+            .then((res) => dispatch(setSessionCache({ key: "events", data: res.data })))
+            .catch((err) => console.warn("Could not fetch events", err));
     }, [access]);
-    return events;
+
+    return cached ?? [];
 }
 
 function useGroupSetMembers(){
 
-    const [members, setMembers] = useState([]);
+    const dispatch = useDispatch();
     const access = useSelector((state)=>state.jwt.access);
+    const cached = useSelector((state) => state.sessionCache.groupSetMembers);
 
     useEffect(() => {
-        const init = async () => {
-            axiosAuth
-                .get("/competitor/groupset-members/")
-                .then((res) => setMembers(res.data))
-                .catch((err) => console.warn("Could not fetch group set members", err));
-        };
-        init();
+        if (cached?.length) return;
+        axiosAuth
+            .get("/competitor/groupset-members/")
+            .then((res) => dispatch(setSessionCache({ key: "groupSetMembers", data: res.data })))
+            .catch((err) => console.warn("Could not fetch group set members", err));
     }, [access]);
 
-    return members;
+    return cached ?? [];
 }
 
 function useOrganizerGroupsets(){
 
-    const [groupsets, setGroupsets] = useState([]);
+    const dispatch = useDispatch();
     const access = useSelector((state)=>state.jwt.access);
+    const cached = useSelector((state) => state.sessionCache.organizerGroupsets);
 
     useEffect(() => {
-        const init = async () => {
-            axiosAuth
-                .get("/organizer/groupset/")
-                .then((res) => setGroupsets(res.data))
-                .catch((err) => console.warn("Could not fetch organizer groupsets", err));
-        };
-        init();
+        if (cached?.length) return;
+        axiosAuth
+            .get("/organizer/groupset/")
+            .then((res) => dispatch(setSessionCache({ key: "organizerGroupsets", data: res.data })))
+            .catch((err) => console.warn("Could not fetch organizer groupsets", err));
     }, [access]);
 
-    return groupsets;
+    return cached ?? [];
 }
 
 export { useCurrentUser, useEvents, useGroupSetMembers, useOrganizerGroupsets };

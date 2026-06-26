@@ -2,7 +2,7 @@ import { Carousel, Timeline, Heading, CWCReps } from "@components";
 
 export default function Home() {
   // TODO: make more flexible to add/remove/change images
-  const carouselImages = ["test_img_1.png", "test_img_2.png", "test_img_3.png", "test_img_4.png"];
+  const carouselImages = ["carousel/2025NQ.jpg", "carousel/2025QS.jpg", "carousel/2025GS.jpg"];
 
   return (
     <>

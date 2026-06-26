@@ -33,7 +33,7 @@ export default function Tournament() {
   return (
     <>
       <div className="relative overflow-hidden">
-        <img src="test_img_1.png" className="w-full opacity-70"/>
+        <img src="JB.jpg" className="w-full opacity-70"/>
 
         <div className="absolute inset-[5%] flex flex-col text-off-white pt-10 md:pt-24">
           <div className="text-2xl md:text-6xl">

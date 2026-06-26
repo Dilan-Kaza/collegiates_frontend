@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setCache } from "@slices";
 import { axiosApi } from "@axios/axios";
 
 function useCsrf(){
@@ -17,45 +19,40 @@ function useCsrf(){
 
 function useColleges(){
 
-    const [colleges, setColleges] = useState({});
-    
+    const dispatch = useDispatch();
+    const cached = useSelector((state) => state.cache.colleges);
 
     useEffect(() => {
-        
-        const init = async () => {
+        if (cached) return;
         axiosApi
-                .get("/college_data/")
-                .then((response) => setColleges(
-                Object.fromEntries(
+            .get("/college_data/")
+            .then((response) => dispatch(setCache({
+                key: "colleges",
+                data: Object.fromEntries(
                     response.data.map(({ college_name, college_id }) => [college_name, college_id])
                 )
-                ))
-                .catch((err) => console.warn("Could not fetch colleges", err));
-        };
-
-        init();
+            })))
+            .catch((err) => console.warn("Could not fetch colleges", err));
     }, []);
 
-    return colleges;
+    return cached ?? {};
 }
 
 
 function useOrganizerSettings() {
 
-    const [settings, setSettings] = useState({});
+    const dispatch = useDispatch();
+    const cached = useSelector((state) => state.cache.organizerSettings);
 
     useEffect(() => {
-        const init = async () => {
-            axiosApi
-                .get("/organizer/settings/")
-                .then((res) => setSettings(res.data))
-                .catch((err) => console.warn("Could not fetch organizer settings", err));
-        };
-
-        init();
+        if (cached) return;
+        axiosApi
+            .get("/organizer/settings/")
+            .then((res) => dispatch(setCache({ key: "organizerSettings", data: res.data })))
+            .catch((err) => console.warn("Could not fetch organizer settings", err));
     }, []);
 
-    return settings;
+    return cached ?? {};
 }
 
 

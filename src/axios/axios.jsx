@@ -48,25 +48,12 @@ axiosAuth.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    // Check if error is 401 and the request hasn't been retried yet
     if ((error.response?.status === 401 || error.response?.status === 403) && !originalRequest._retry) {
       
-      // If a refresh is already in progress, queue this request
       if (isRefreshing) {
-        return new Promise((resolve, reject) => {
-          failedQueue.push({ resolve, reject });
-        })
-          .then((token) => {
-            originalRequest.headers['Authorization'] = `Bearer ${token}`;
-            return axiosApi(originalRequest); // Retry original request
-          })
-          .catch((err) => Promise.reject(err));
+        return;
       }
-
-      // Mark this request as a retry to prevent infinite loops if the refresh fails
-      originalRequest._retry = true;
-      isRefreshing = true;
-
+      
       return new Promise((resolve, reject) => {
         // Use standard axios or a clean instance to avoid using the interceptor on the refresh call
         axiosApi.post('/auth/jwt/refresh/')

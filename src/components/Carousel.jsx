@@ -20,7 +20,6 @@ function CarouselSquare({ src }) {
       <div className="bg-gray-400 h-[30rem] w-[30rem] rounded-[2rem] relative">
         <img
           src={`/${src}`}
-          fill={true}
           alt="Carousel image"
           className="h-full w-full object-cover rounded-[2rem]"
         />
