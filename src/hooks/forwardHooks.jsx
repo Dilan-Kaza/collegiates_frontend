@@ -29,4 +29,16 @@ function useForwardSignIn(){
     },[status])
 }
 
-export { useForwardDashboard, useForwardSignIn };
+function useForwardIfNotOrganizer(){
+
+    const status = useSelector((state) => state.loginStatus);
+    const nav = useNavigate();
+
+    useEffect(()=>{
+        if (status.loading === false && status.isOrganizer === false) {
+            nav('/');
+        }
+    },[status])
+}
+
+export { useForwardDashboard, useForwardSignIn, useForwardIfNotOrganizer };

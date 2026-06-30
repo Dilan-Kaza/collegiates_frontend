@@ -25,3 +25,8 @@ dist-ssr
 
 # ENV
 .env
+credentials.json
+
+# Claude
+.claude/
+.claudeignore

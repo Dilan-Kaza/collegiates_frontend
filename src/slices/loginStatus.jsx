@@ -5,19 +5,25 @@ export const loginStatusSlice = createSlice({
   initialState: {
     loading: true,
     loggedIn: false,
+    isOrganizer: false,
   },
   reducers: {
     clearLoginStaus: state => {
       state.loading = true;
       state.loggedIn = false;
+      state.isOrganizer = false;
     },
-    setLoginStatus: (state, status) => {
+    setLoginStatus: (state, action) => {
       state.loading = false;
-      state.loggedIn = status.payload;
+      state.loggedIn = action.payload;
+      if (!action.payload) state.isOrganizer = false;
+    },
+    setOrganizerStatus: (state, action) => {
+      state.isOrganizer = action.payload;
     }
   }
 })
 
-export const { clearLoginStaus, setLoginStatus } = loginStatusSlice.actions
+export const { clearLoginStaus, setLoginStatus, setOrganizerStatus } = loginStatusSlice.actions
 
 export default loginStatusSlice.reducer

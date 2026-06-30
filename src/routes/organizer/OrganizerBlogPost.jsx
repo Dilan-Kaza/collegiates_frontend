@@ -1,5 +1,5 @@
 import { MtHeader } from "@components";
-import { useOrganizerBlogPost } from "@hooks";
+import { useOrganizerBlogPost, useForwardIfNotOrganizer } from "@hooks";
 import { clearCache, setErrorMsg } from "@slices";
 import { axiosAuth } from "@axios/axios";
 import { useParams, useNavigate } from "react-router";
@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 
 export default function OrganizerBlogPost() {
 
+    useForwardIfNotOrganizer();
     const { blog_id } = useParams();
     const nav = useNavigate();
     const dispatch = useDispatch();
@@ -90,10 +91,12 @@ export default function OrganizerBlogPost() {
                         </>
                     ) : (
                         <>
-                            <div className="text-3xl text-secondary font-semibold">{post.title}</div>
+                            <div className="flex items-baseline gap-3">
+                                <div className="text-3xl text-secondary font-semibold">{post.title}</div>
+                                {post.date_created && <div className="text-xs text-gray-400">{new Date(post.date_created).toLocaleDateString()}</div>}
+                            </div>
                             {post.author && <div className="text-sm text-gray-400">By {post.author}</div>}
                             {post.category && <div className="text-xs text-primary font-medium uppercase tracking-wide">{post.category}</div>}
-                            {post.date && <div className="text-xs text-gray-400">{post.date}</div>}
                             <div className="border-t border-gray-200 pt-4 text-dark text-sm whitespace-pre-wrap">
                                 {post.blog_content}
                             </div>

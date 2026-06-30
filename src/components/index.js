@@ -8,6 +8,7 @@ export { default as BlogNews } from "./BlogNews";
 export { default as OrganizerBlogList } from "./OrganizerBlogList";
 export { default as EventSelection } from "./EventSelection";
 export { default as GroupsetList } from "./GroupsetList";
+export { default as OrganizerFindUser } from "./OrganizerFindUser";
 export { ShortAnswer, Dropdown, DatePicker } from "./FormComponents";
 export { ImgHeader, MtHeader } from "./Headers";
 export { Heading } from "./Heading";

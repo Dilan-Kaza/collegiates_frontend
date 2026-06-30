@@ -1,8 +1,10 @@
 import { MtHeader, GroupsetList } from "@components";
 import { useNavigate } from "react-router";
+import { useForwardIfNotOrganizer } from "@hooks";
 
 export default function OrganizerGroupset() {
 
+    useForwardIfNotOrganizer();
     const nav = useNavigate();
 
     return (

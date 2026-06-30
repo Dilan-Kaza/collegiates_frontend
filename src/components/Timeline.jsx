@@ -28,11 +28,19 @@ function TimelineSection() {
 }
 
 function Timeline() {
+  const compinfo = useOrganizerSettings();
+
+  const dateToStr = (dateStr) => {
+    if (!dateStr) return "TBD";
+    const dateObj = new Date(`${dateStr}T00:00:00`);
+    return dateObj.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' });
+  };
+
   const events = {
-    "Registration Opens": "Feburary 8, 2025",
-    "Early Registration": "March 8, 2025",
-    "Competitor Documentation": "March 8, 2025",
-    "Registration Fee Deadline": "8 AM on Competition Day",
+    "Registration Opens": dateToStr(compinfo.early_reg_start),
+    "Early Registration Deadline": dateToStr(compinfo.early_reg_end),
+    "Registration Deadline": dateToStr(compinfo.reg_end),
+    "Competition Day": dateToStr(compinfo.comp_date),
   };
 
   return (

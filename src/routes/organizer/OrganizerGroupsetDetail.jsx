@@ -1,5 +1,5 @@
-import { MtHeader } from "@components";
-import { useOrganizerGroupset } from "@hooks";
+import { MtHeader, OrganizerFindUser } from "@components";
+import { useOrganizerGroupset, useForwardIfNotOrganizer } from "@hooks";
 import { clearSessionCache, setErrorMsg } from "@slices";
 import { axiosAuth } from "@axios/axios";
 import { useParams, useNavigate } from "react-router";
@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 
 export default function OrganizerGroupsetDetail() {
 
+    useForwardIfNotOrganizer();
     const { uuid } = useParams();
     const nav = useNavigate();
     const dispatch = useDispatch();
@@ -16,19 +17,36 @@ export default function OrganizerGroupsetDetail() {
     const [editing, setEditing] = useState(false);
     const [teamName, setTeamName] = useState("");
     const [leaderId, setLeaderId] = useState("");
+    const [members, setMembers] = useState([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (groupset && Object.keys(groupset).length > 0) {
             setTeamName(groupset.team_name ?? "");
             setLeaderId(groupset.leader?.user_id ?? "");
+            setMembers(groupset.members ?? []);
         }
     }, [groupset]);
+
+    const handleAdd = (user_id, email) => {
+        if (members.some(m => m.user_id === user_id)) return;
+        setMembers(prev => [...prev, { user_id, name: email }]);
+    };
+
+    const handleRemove = (user_id) => {
+        if (leaderId === user_id) setLeaderId("");
+        setMembers(prev => prev.filter(m => m.user_id !== user_id));
+    };
 
     const handleSave = async () => {
         setLoading(true);
         try {
-            await axiosAuth.patch(`/organizer/groupset/${uuid}/`, { team_name: teamName, leader: leaderId, school: groupset.school?.school_id, members: groupset.members?.map(m => m.user_id) });
+            await axiosAuth.patch(`/organizer/groupset/${uuid}/`, {
+                team_name: teamName,
+                leader: leaderId,
+                school: groupset.school?.school_id,
+                members: members.map(m => m.user_id),
+            });
             dispatch(clearSessionCache(`groupset_${uuid}`));
             dispatch(clearSessionCache("organizerGroupsets"));
             setEditing(false);
@@ -62,10 +80,10 @@ export default function OrganizerGroupsetDetail() {
                         )}
                         <div className="bg-off-white rounded-lg px-6 py-5 flex flex-col gap-4 border border-gray-200">
                             <div className="text-xl font-semibold text-primary border-b border-gray-200 pb-2">Members</div>
-                            {groupset.members?.length > 0 ? (
+                            {members.length > 0 ? (
                                 <div className="flex flex-col gap-2">
-                                    {groupset.members.map((m) => (
-                                        <label key={m.user_id} className="flex items-center gap-3 text-sm text-dark cursor-pointer">
+                                    {members.map((m) => (
+                                        <div key={m.user_id} className="flex items-center gap-3 text-sm text-dark">
                                             <input
                                                 type="radio"
                                                 name="leader"
@@ -73,14 +91,18 @@ export default function OrganizerGroupsetDetail() {
                                                 checked={leaderId === m.user_id}
                                                 onChange={() => setLeaderId(m.user_id)}
                                             />
-                                            <span>{m.name}</span>
+                                            <span className="flex-1">{m.name}</span>
                                             {leaderId === m.user_id && <span className="text-secondary text-xs">(leader)</span>}
-                                        </label>
+                                            <button className="text-xs text-red-400 hover:underline" onClick={() => handleRemove(m.user_id)}>Remove</button>
+                                        </div>
                                     ))}
                                 </div>
                             ) : (
                                 <div className="text-sm text-gray-400">No members.</div>
                             )}
+                            <div className="border-t border-gray-200 pt-3">
+                                <OrganizerFindUser onFound={handleAdd} />
+                            </div>
                         </div>
                         <div className="flex justify-end">
                             <button className="btn btn-primary" onClick={handleSave} disabled={loading}>

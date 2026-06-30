@@ -3,10 +3,12 @@ import { clearCache, setErrorMsg } from "@slices";
 import { axiosAuth } from "@axios/axios";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { useForwardIfNotOrganizer } from "@hooks";
 import { useDispatch } from "react-redux";
 
 export default function OrganizerBlog() {
 
+    useForwardIfNotOrganizer();
     const nav = useNavigate();
     const dispatch = useDispatch();
     const [title, setTitle] = useState("");
