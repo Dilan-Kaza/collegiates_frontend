@@ -1,6 +1,6 @@
 import axios from "axios";
 import store from '@/store'
-import { clearJwt, setJwt, setLoginStatus } from "@slices";
+import { clearJwt, setJwt, applyLoginStatus } from "@slices";
 
 const apiUrl = (import.meta.env.VITE_API_URL || 'http://localhost:8000') + '/collegiates_app';
 
@@ -42,6 +42,7 @@ axiosAuth.interceptors.request.use(
 
 
 let isRefreshing = false;
+let lastRefreshTime = 0;
 
 axiosAuth.interceptors.response.use(
   (response) => response, // Pass successful responses straight through
@@ -49,11 +50,15 @@ axiosAuth.interceptors.response.use(
     const originalRequest = error.config;
 
     if ((error.response?.status === 401 || error.response?.status === 403) && !originalRequest._retry) {
-      
-      if (isRefreshing) {
+
+      const now = Date.now();
+      if (isRefreshing || now - lastRefreshTime < 1000) {
         return;
       }
-      
+
+      isRefreshing = true;
+      lastRefreshTime = now;
+
       return new Promise((resolve, reject) => {
         // Use standard axios or a clean instance to avoid using the interceptor on the refresh call
         axiosApi.post('/auth/jwt/refresh/')
@@ -64,8 +69,8 @@ axiosAuth.interceptors.response.use(
           }
         })
         .catch((err) => {
+          store.dispatch(applyLoginStatus(false));
           reject(err);
-          store.dispatch(setLoginStatus(false));
         })
         .finally(() => {
           isRefreshing = false;
@@ -77,4 +82,13 @@ axiosAuth.interceptors.response.use(
   }
 );
 
-export { axiosApi, axiosAuth };
+const axiosSheets = axios.create({
+    baseURL: `https://sheets.googleapis.com/v4/spreadsheets`,
+});
+
+axiosSheets.interceptors.request.use((config) => {
+    config.params = { ...config.params, key: import.meta.env.VITE_GOOGLE_API_KEY };
+    return config;
+});
+
+export { axiosApi, axiosAuth, axiosSheets };

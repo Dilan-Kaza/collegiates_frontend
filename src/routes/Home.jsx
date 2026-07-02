@@ -1,4 +1,4 @@
-import { Carousel, Timeline, Heading, CWCReps, BlogNews } from "@components";
+import { Carousel, Timeline, Heading, CWCReps, BlogPosts } from "@components";
 import { Link } from "react-router";
 
 export default function Home() {
@@ -17,13 +17,17 @@ export default function Home() {
       </div>
       
 
-      <div className="py-6 bg-primary hidden md:block">
+      <div className="py-1 sm:py-6 bg-primary">
         <Carousel imgs={carouselImages} />
       </div>
 
       <div className="py-8 bg-off-white px-[10%]">
-        <Link to="/news" className="text-2xl font-semibold text-primary mb-4 hover:underline">News</Link>
-        <BlogNews />
+        <div className="flex gap-6 mb-4 justify-center">
+          <Link to="/news" className="text-2xl font-semibold text-primary hover:underline">News</Link>
+          <span className="text-2xl text-primary">/</span>
+          <Link to="/multimedia" className="text-2xl font-semibold text-primary hover:underline">Multimedia</Link>
+        </div>
+        <BlogPosts />
       </div>
 
       <div className="py-8 md:py-[12rem] bg-primary text-secondary">

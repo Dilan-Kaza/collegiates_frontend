@@ -71,12 +71,14 @@ export default function OrganizerBlogPost() {
                                 onChange={(e) => setForm(f => ({ ...f, author: e.target.value }))}
                                 placeholder="Author"
                             />
-                            <input
-                                className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-primary"
+                            <select
+                                className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-primary bg-off-white"
                                 value={form.category}
                                 onChange={(e) => setForm(f => ({ ...f, category: e.target.value }))}
-                                placeholder="Category"
-                            />
+                            >
+                                <option value="News">News</option>
+                                <option value="Multimedia">Multimedia</option>
+                            </select>
                             <textarea
                                 className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-primary min-h-[12rem] resize-y"
                                 value={form.blog_content}

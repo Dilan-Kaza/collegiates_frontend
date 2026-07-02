@@ -1,4 +1,4 @@
-import { MtHeader, OrganizerBlogList } from "@components";
+import { MtHeader, OrganizerBlogList, Dropdown } from "@components";
 import { clearCache, setErrorMsg } from "@slices";
 import { axiosAuth } from "@axios/axios";
 import { useState } from "react";
@@ -57,18 +57,23 @@ export default function OrganizerBlog() {
                         value={author}
                         onChange={(e) => setAuthor(e.target.value)}
                     />
-                    <input
-                        className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-primary"
-                        placeholder="Category"
+                    <select
+                        className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-primary bg-off-white"
                         value={category}
                         onChange={(e) => setCategory(e.target.value)}
-                    />
-                    <textarea
-                        className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-primary min-h-[8rem] resize-y"
-                        placeholder="Content"
-                        value={blog_content}
-                        onChange={(e) => setBlogContent(e.target.value)}
-                    />
+                    >
+                        <option value="News">News</option>
+                        <option value="Multimedia">Multimedia</option>
+                    </select>
+                    <div className="flex flex-col gap-1">
+                        <textarea
+                            className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-primary min-h-[8rem] resize-y"
+                            placeholder="Content"
+                            value={blog_content}
+                            onChange={(e) => setBlogContent(e.target.value)}
+                        />
+                        <span className="text-xs text-gray-400">Use the format: link"{`https://example.com`}"</span>
+                    </div>
                     <div className="flex justify-end">
                         <button
                             className="btn btn-primary"

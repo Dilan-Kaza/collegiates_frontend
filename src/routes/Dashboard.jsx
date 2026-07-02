@@ -41,8 +41,8 @@ export default function Dashboard (){
                             <div className="text-lg font-semibold mb-2">Registered Events</div>
                             {userinfo.registrations.map((reg, i) => (
                                 <div key={i} className="border border-gray-200 rounded-lg px-4 py-2 text-sm w-full text-center">
-                                    <div className="font-medium">{reg.event}</div>
-                                    {reg.nandu_str && <div className="text-gray-500">Nandu Code: {reg.nandu_str}</div>}
+                                    <div className="font-medium">{reg.event_name}</div>
+                                    {reg.nandu_str && <div className="text-gray-500">Nandu: {reg.nandu_str}</div>}
                                 </div>
                             ))}
                             <button className="btn btn-secondary mt-2" onClick={() => nav('/groupset')}>Group Set</button>

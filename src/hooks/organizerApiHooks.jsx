@@ -38,4 +38,20 @@ function useOrganizerGroupset(uuid){
     return cached ?? {};
 }
 
-export { useOrganizerGroupsets, useOrganizerGroupset };
+function useOrganizerRegistrations() {
+    const dispatch = useDispatch();
+    const access = useSelector((state) => state.jwt.access);
+    const cached = useSelector((state) => state.sessionCache.organizerRegistrations);
+
+    useEffect(() => {
+        if (cached?.length) return;
+        axiosAuth
+            .get("/organizer/registration/")
+            .then((res) => dispatch(setSessionCache({ key: "organizerRegistrations", data: res.data })))
+            .catch((err) => console.warn("Could not fetch organizer registrations", err));
+    }, [access]);
+
+    return cached ?? [];
+}
+
+export { useOrganizerGroupsets, useOrganizerGroupset, useOrganizerRegistrations };

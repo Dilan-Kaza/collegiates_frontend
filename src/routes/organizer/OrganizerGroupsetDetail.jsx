@@ -28,9 +28,9 @@ export default function OrganizerGroupsetDetail() {
         }
     }, [groupset]);
 
-    const handleAdd = (user_id, email) => {
+    const handleAdd = (user_id, name) => {
         if (members.some(m => m.user_id === user_id)) return;
-        setMembers(prev => [...prev, { user_id, name: email }]);
+        setMembers(prev => [...prev, { user_id, name }]);
     };
 
     const handleRemove = (user_id) => {

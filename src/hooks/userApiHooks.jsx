@@ -1,7 +1,7 @@
 import { axiosAuth } from "@axios/axios";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setLoginStatus, setOrganizerStatus, setSessionCache } from "@slices";
+import { applyLoginStatus, setOrganizerStatus, setSessionCache } from "@slices";
 
 
 function useCurrentUser(){
@@ -16,8 +16,8 @@ function useCurrentUser(){
             .get("/auth/users/me/")
             .then((res) => {
                 dispatch(setSessionCache({ key: "currentUser", data: res.data }));
-                dispatch(setLoginStatus(true));
                 dispatch(setOrganizerStatus(res.data.user_type === "O"));
+                dispatch(applyLoginStatus(true));
             })
             .catch(() => dispatch(setSessionCache({ key: "currentUser", data: {} })));
     }, [access]);

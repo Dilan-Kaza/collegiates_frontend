@@ -5,6 +5,7 @@ import errorReducer from '@slices/error'
 import loginStatusReducer from '@slices/loginStatus'
 import cacheReducer from '@slices/cache'
 import sessionCacheReducer from '@slices/sessionCache'
+import blogCategoryReducer from '@slices/blogCategory'
 
 
 const store = configureStore({
@@ -15,6 +16,7 @@ const store = configureStore({
       loginStatus: loginStatusReducer,
       cache: cacheReducer,
       sessionCache: sessionCacheReducer,
+      blogCategory: blogCategoryReducer,
     }
 })
 

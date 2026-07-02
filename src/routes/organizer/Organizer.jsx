@@ -1,4 +1,4 @@
-import { MtHeader, GroupsetList, OrganizerBlogList } from "@components";
+import { MtHeader, GroupsetList, OrganizerBlogList, OrganizerRegistrationList } from "@components";
 import { useOrganizerSettings, useForwardIfNotOrganizer } from "@hooks";
 import { Link } from "react-router";
 import { useState } from "react";
@@ -7,6 +7,7 @@ export default function Organizer() {
 
     useForwardIfNotOrganizer();
     const settings = useOrganizerSettings();
+    const [registrationsOpen, setRegistrationsOpen] = useState(true);
     const [groupsetsOpen, setGroupsetsOpen] = useState(true);
     const [blogOpen, setBlogOpen] = useState(true);
 
@@ -49,6 +50,17 @@ export default function Organizer() {
                             </div>
                         ))}
                     </div>
+                </div>
+
+                <div className="bg-off-white rounded-lg px-6 py-5 flex flex-col gap-4">
+                    <button
+                        className="flex justify-between items-center text-xl font-semibold text-primary border-b border-gray-200 pb-2 w-full text-left"
+                        onClick={() => setRegistrationsOpen(o => !o)}
+                    >
+                        <Link to="/organizer/registrations" className="hover:underline" onClick={e => e.stopPropagation()}>Registrations</Link>
+                        <span className="text-sm text-gray-400">{registrationsOpen ? "▲" : "▼"}</span>
+                    </button>
+                    {registrationsOpen && <OrganizerRegistrationList />}
                 </div>
 
                 <div className="bg-off-white rounded-lg px-6 py-5 flex flex-col gap-4">

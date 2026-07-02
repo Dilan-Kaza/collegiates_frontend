@@ -14,7 +14,8 @@ export default function OrganizerFindUser({ onFound }) {
         setLoading(true);
         try {
             const res = await axiosAuth.get(`/organizer/user/${email}/`);
-            onFound?.(res.data.user_id, email);
+            const { user_id, first_name, last_name } = res.data.data;
+            onFound?.(user_id, `${first_name} ${last_name}`);
             setEmail("");
         } catch (err) {
             dispatch(setErrorMsg(err.response?.data?.detail ?? "User not found"));

@@ -1,6 +1,5 @@
-export { Organizer, OrganizerSettings, OrganizerBlog, OrganizerBlogPost, OrganizerGroupset, OrganizerGroupsetDetail, EventBuilder } from "./organizer";
-export { default as News } from "./News";
-export { default as NewsPost } from "./NewsPost";
+export { Organizer, OrganizerSettings, OrganizerBlog, OrganizerBlogPost, OrganizerGroupset, OrganizerGroupsetDetail, OrganizerRegistrations, EventBuilder } from "./organizer";
+export { Blog, Multimedia, News } from "./blog";
 export { default as About } from "./About";
 export { default as Dashboard } from "./Dashboard";
 export { default as Groupset } from "./Groupset";
